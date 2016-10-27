@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FitBitApp</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_steps">Steps</string>
+    <string name="dashboard_calories">Calories Burned</string>
+    <string name="dashboard_avrgHeartrate">Avrg Heartrate</string>
+    <string name="dashboard_maxHeartrate">Max Heartrate</string>
+    <string name="dashboard_minHeartrate">Min Heartrate</string>
+    <string name="dashboard_elevation">Elevation</string>
+    <string name="dashboard_timeActive">Time Active</string>
+    <string name="dashboard_distance">Distance</string>
 </resources>
