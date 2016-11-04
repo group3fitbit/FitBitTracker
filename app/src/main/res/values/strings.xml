@@ -1,4 +1,23 @@
 <resources>
+    <string name="app_name">FitGainz</string>
+    <string name="client_id">2282HD</string>
+    <string name="client_secret">35235d4201e235c7e74abb1283bcd573</string>
+
+    <string name="login">Log In</string>
+
+    <string name="days_input_error">Please enter a value greater than 0</string>
+
+    <string name="user_full_name">Logged In As:</string>
+    <string name="input_days">Enter Number of Days</string>
+    <string name="get_steps">Get Steps List</string>
+    <string name="get_today_summary">Get Today\'s Summary</string>
+
+    <string name="logout">Log Out</string>
+    <string name="logout_ask">Do you want to log out?</string>
+    <string name="logout_confirm">You have successfully logged out</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="app_name">FitBitApp</string>
     <string name="dashboard_title">Dashboard</string>
     <string name="dashboard_steps">Steps</string>

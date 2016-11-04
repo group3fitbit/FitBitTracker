@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tempreture.android.csulb.edu.fitbitapp">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardMainActivity" />
         </activity>
+        <activity android:name=".FitbitApi" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".UserActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".EasySocialAuthActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
     </application>
 
 </manifest>
