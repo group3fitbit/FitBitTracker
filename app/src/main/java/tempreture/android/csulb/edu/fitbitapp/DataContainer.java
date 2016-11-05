@@ -1,36 +1,40 @@
 package tempreture.android.csulb.edu.fitbitapp;
 
+import java.util.ArrayList;
+
 /**
  * Created by Adrian on 04.11.2016.
  */
 
 public class DataContainer {
-    private String date;
-    private String value;
+    ArrayList<DataEntry> dcSteps;
+    ArrayList<DataEntry> dcDistance;
+    //TODO add container for other datatypes
+
 
     public DataContainer() {
-        this.date = "";
-        this.value = "";
+        //TODO make class singleton
+        dcSteps = new ArrayList<DataEntry>();
+        dcDistance = new ArrayList<DataEntry>();
     }
 
-    public DataContainer(String date, String value) {
-        this.date = date;
-        this.value = value;
+    public DataEntry getTodayStepsEntry() {
+        return dcSteps.get(0);
     }
 
-    public String getValue() {
-        return value;
+    public void addSteppsEntry(DataEntry e) {
+        dcSteps.add(e);
+        //TODO sort entries by date
     }
 
-    public String getDate() {
-        return date;
+    public void addSteppsEntries(ArrayList<DataEntry> dc) {
+        this.dcSteps.addAll(dc);
+        //TODO sort entries by date
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public ArrayList<DataEntry> getSteps() {
+        return dcSteps;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+    //TODO add methods to add and get other datatypes
 }

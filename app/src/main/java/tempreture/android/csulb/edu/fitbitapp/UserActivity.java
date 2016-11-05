@@ -196,8 +196,8 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<DataContainer> getStepsTime(int days){
-        ArrayList<DataContainer> fitbitData = new ArrayList<DataContainer>();
+    public ArrayList<DataEntry> getStepsTime(int days){
+        ArrayList<DataEntry> fitbitData = new ArrayList<DataEntry>();
         // get calendar object of today - inputed number of days
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -days);
@@ -215,7 +215,7 @@ public class UserActivity extends AppCompatActivity {
             List<String> consoleList = new ArrayList<>();
             for (int i=objLen-1; i>=0; i--){
                 stepsObj = stepsArray.getJSONObject(i);
-                fitbitData.add(new DataContainer(stepsObj.getString("dateTime"), stepsObj.getString("value")));
+                fitbitData.add(new DataEntry(stepsObj.getString("dateTime"), stepsObj.getString("value")));
             }
         }
         catch (JSONException e){

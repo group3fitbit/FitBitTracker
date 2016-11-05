@@ -1,6 +1,5 @@
 package tempreture.android.csulb.edu.fitbitapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -41,7 +40,6 @@ public class DashboardMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_main);
         initViewElements();
-        getData();
     }
 
     /**
@@ -64,29 +62,17 @@ public class DashboardMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getData() {
-        ArrayList<DataContainer> dc =  this.getStepsTime(31);
-        textView_dashboard_steps.setText(dc.get(8).getValue());
+
+    @Override
+    public void onResume() {
+        DataContainer dc = new DataContainer();
+        super.onResume();
+        dc.addSteppsEntries(getStepsTime(31));
+        textView_dashboard_steps.setText(dc.getTodayStepsEntry().getValue());
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//                ArrayList<Double> loadItemList_Steps = Util.getLoadItemlist(999.00);
-//                for (Double d : loadItemList_Steps) {
-//
-//                    textView_dashboard_steps.setText(String.format("%.2f", d));
-//                    try {
-//                        Thread.sleep(15);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//    }
-
-    public ArrayList<DataContainer> getStepsTime(int days){
-        ArrayList<DataContainer> fitbitData = new ArrayList<DataContainer>();
+    public ArrayList<DataEntry> getStepsTime(int days){
+        ArrayList<DataEntry> fitbitData = new ArrayList<DataEntry>();
         // get calendar object of today - inputed number of days
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -days);
@@ -104,7 +90,7 @@ public class DashboardMainActivity extends AppCompatActivity {
             List<String> consoleList = new ArrayList<>();
             for (int i=objLen-1; i>=0; i--){
                 stepsObj = stepsArray.getJSONObject(i);
-                fitbitData.add(new DataContainer(stepsObj.getString("dateTime"), stepsObj.getString("value")));
+                fitbitData.add(new DataEntry(stepsObj.getString("dateTime"), stepsObj.getString("value")));
             }
         }
         catch (JSONException e){
