@@ -196,6 +196,37 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
+    public ArrayList<DataContainer> getStepsTime(int days){
+        ArrayList<DataContainer> fitbitData = new ArrayList<DataContainer>();
+        // get calendar object of today - inputed number of days
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, -days);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String date = df.format(c.getTime());
+
+        String url = "https://api.fitbit.com/1/user/-/activities/steps/date/" + date + "/today.json";
+        String jsonString = FitbitApi.getData(url, getAccess());
+        JSONObject stepsObj = FitbitApi.convertStringToJson(jsonString);
+        int objLen;
+
+        try {
+            JSONArray stepsArray = stepsObj.getJSONArray("activities-steps");
+            objLen = stepsArray.length();
+            List<String> consoleList = new ArrayList<>();
+            for (int i=objLen-1; i>=0; i--){
+                stepsObj = stepsArray.getJSONObject(i);
+                fitbitData.add(new DataContainer(stepsObj.getString("dateTime"), stepsObj.getString("value")));
+            }
+        }
+        catch (JSONException e){
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        catch(NullPointerException e){
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        return fitbitData;
+    }
+
     // get and set methods to use access token in preferences
     private String getAccess(){
         try{

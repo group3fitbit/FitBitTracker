@@ -21,7 +21,7 @@ import java.text.NumberFormat;
  * Created by Adrian on 03.11.2016.
  */
 
-public class DashboardDetailActivity extends AppCompatActivity {
+public class DashBoardDetailActivity extends AppCompatActivity {
     XYMultipleSeriesDataset xyMultipleSeriesDataset = new XYMultipleSeriesDataset();
 
     @Override
@@ -31,7 +31,6 @@ public class DashboardDetailActivity extends AppCompatActivity {
 //        createGraph();
         drawChart();
     }
-
 
     private void createGraph() {
         XYSeries xySeries = new XYSeries("Sample Data!");

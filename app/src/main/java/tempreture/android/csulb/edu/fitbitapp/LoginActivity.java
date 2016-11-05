@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_dashboard_main);
         loginUrl = authorizeUrl + "?" +
                 "client_id=" + getResources().getString(R.string.client_id) + "&" +
                 "response_type=" + responseType + "&" +
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             // logged in successfully
             // delete this activity and start user screen activity
-            Intent intent = new Intent(this, UserActivity.class);
+            Intent intent = new Intent(this, DashboardMainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
         }

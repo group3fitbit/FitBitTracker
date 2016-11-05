@@ -18,7 +18,6 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="app_name">FitBitApp</string>
     <string name="dashboard_title">Dashboard</string>
     <string name="dashboard_steps">Steps</string>
     <string name="dashboard_calories">Calories Burned</string>
