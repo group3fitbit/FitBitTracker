@@ -1,39 +1,44 @@
 package tempreture.android.csulb.edu.fitbitapp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Adrian on 04.11.2016.
  */
 
+/**
+ * This class holds all Data retrieved from FitBit Webapi. The Data from the last 31 days is stored in here.
+ */
 public class DataContainer {
-    ArrayList<DataEntry> dcSteps;
-    ArrayList<DataEntry> dcDistance;
-    //TODO add container for other datatypes
+    private static DataContainer dc;
+    HashMap<String, String> steps;
+    HashMap<String, String> distance;
+    HashMap<String, String> elevation;
+    HashMap<String, String> avrgHeartrate; //TODO have to take a look into it
+    HashMap<String, String> timeActive;
 
-
-    public DataContainer() {
-        //TODO make class singleton
-        dcSteps = new ArrayList<DataEntry>();
-        dcDistance = new ArrayList<DataEntry>();
+    public static DataContainer getInstance() {
+        if(dc == null) {
+            dc = new DataContainer();
+        }
+        return dc;
     }
 
-    public DataEntry getTodayStepsEntry() {
-        return dcSteps.get(0);
+    private DataContainer() {
+        steps = new HashMap<String, String>();
     }
 
-    public void addSteppsEntry(DataEntry e) {
-        dcSteps.add(e);
-        //TODO sort entries by date
+    public String getTodaySteps() {
+        return ""; //TODO get today item should be maybe last
     }
 
-    public void addSteppsEntries(ArrayList<DataEntry> dc) {
-        this.dcSteps.addAll(dc);
-        //TODO sort entries by date
+    public void addSteppsEntry(String date, String value) {
+        steps.put(date, value);
     }
 
-    public ArrayList<DataEntry> getSteps() {
-        return dcSteps;
+    public HashMap<String, String> getSteps() {
+        return steps;
     }
 
     //TODO add methods to add and get other datatypes

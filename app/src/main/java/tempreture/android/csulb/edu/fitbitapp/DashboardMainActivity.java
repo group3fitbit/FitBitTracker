@@ -25,7 +25,7 @@ import java.util.Locale;
  */
 
 public class DashboardMainActivity extends AppCompatActivity {
-
+    private DataContainer dc;
     private TextView textView_dashboard_steps;
     private TextView textView_dashboard_distance;
     private TextView textView_dashboard_calories;
@@ -39,6 +39,7 @@ public class DashboardMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_main);
+        dc =  DataContainer.getInstance();
         initViewElements();
     }
 
@@ -65,14 +66,12 @@ public class DashboardMainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        DataContainer dc = new DataContainer();
         super.onResume();
-        dc.addSteppsEntries(getStepsTime(31));
-        textView_dashboard_steps.setText(dc.getTodayStepsEntry().getValue());
+        getStepsFromWeb(31);
+        textView_dashboard_steps.setText(dc.getTodaySteps());
     }
 
-    public ArrayList<DataEntry> getStepsTime(int days){
-        ArrayList<DataEntry> fitbitData = new ArrayList<DataEntry>();
+    public void getStepsFromWeb(int days){
         // get calendar object of today - inputed number of days
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -days);
@@ -90,7 +89,7 @@ public class DashboardMainActivity extends AppCompatActivity {
             List<String> consoleList = new ArrayList<>();
             for (int i=objLen-1; i>=0; i--){
                 stepsObj = stepsArray.getJSONObject(i);
-                fitbitData.add(new DataEntry(stepsObj.getString("dateTime"), stepsObj.getString("value")));
+                dc.addSteppsEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
             }
         }
         catch (JSONException e){
@@ -99,7 +98,6 @@ public class DashboardMainActivity extends AppCompatActivity {
         catch(NullPointerException e){
             Log.e("ERROR", e.getMessage(), e);
         }
-        return fitbitData;
     }
 
     private String getAccess(){
