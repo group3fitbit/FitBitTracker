@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FitBitApp.iml" filepath="$PROJECT_DIR$/FitBitApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/FitBitTracker.iml" filepath="$PROJECT_DIR$/FitBitTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

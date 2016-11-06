@@ -2,12 +2,17 @@ package tempreture.android.csulb.edu.fitbitapp;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +39,8 @@ public class DashboardMainActivity extends AppCompatActivity {
     private TextView textView_dashboard_minHeartrate;
     private TextView textView_dashboard_elevation;
     private TextView textView_dashboard_timeActive;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,14 @@ public class DashboardMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_main);
         dc =  DataContainer.getInstance();
         initViewElements();
+
+/* start toolbar----------------------------------------------------------------*/
+        toolbar = (Toolbar) findViewById(R.id.dashboard_toolbar);
+        setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle("DASHBOARD");
+        toolbar.setTitleTextColor(Color.WHITE);
+/* end toolbar --------------------------------------------------------------------*/
     }
 
     /**
@@ -126,6 +141,32 @@ public class DashboardMainActivity extends AppCompatActivity {
             return "NULL";
         }
     }
+    /* start menu ----------------------------------------------------------------- */
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.viewmenu, menu);
+        menu.findItem(R.id.dashboard).setVisible(false);//disable dashboard
+        return true;
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.dashboard: //(id == R.id.start_challenge) {
+                Toast.makeText(DashboardMainActivity.this,"dashboard",Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.start_challenge: //(id == R.id.start_challenge) {
+                Toast.makeText(DashboardMainActivity.this,"start challenge",Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.challenge_progress:// (id == R.id.challenge_progress) {
+                Toast.makeText(DashboardMainActivity.this,"challenge progress",Toast.LENGTH_SHORT).show();
+                 //setContentView.setView(R.layout.user_progress_list);
+                 Intent i = new Intent(DashboardMainActivity.this, UserProgress.class);
+                 startActivity(i);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+/* end menu -----------------------------------------------------------*/
 
 }

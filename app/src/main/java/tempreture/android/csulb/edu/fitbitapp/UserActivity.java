@@ -195,7 +195,7 @@ public class UserActivity extends AppCompatActivity {
             Log.e("ERROR", e.getMessage(), e);
         }
     }
-
+/*
     public ArrayList<DataEntry> getStepsTime(int days){
         ArrayList<DataEntry> fitbitData = new ArrayList<DataEntry>();
         // get calendar object of today - inputed number of days
@@ -225,7 +225,7 @@ public class UserActivity extends AppCompatActivity {
             Log.e("ERROR", e.getMessage(), e);
         }
         return fitbitData;
-    }
+    }*/
 
     // get and set methods to use access token in preferences
     private String getAccess(){

@@ -27,4 +27,21 @@
     <string name="dashboard_elevation">Elevation</string>
     <string name="dashboard_timeActive">Time Active</string>
     <string name="dashboard_distance">Distance</string>
+
+    <!--ming's additions-->
+    <string name="challenge_progression">Challenge Progression</string>
+    <string name="user_progress">User Progress</string>
+    <string name="Start"> START</string>
+    <string name="End">END</string>
+    <string name="Ming">Ming</string>
+    <string name="Jordan">Jordan</string>
+    <string name="Leslie">Leslie</string>
+    <string name="Adrian">Adrian</string>
+    <string name="Noam">Noam</string>
+    <string name="tab_1">Tab1</string>
+    <string name="tab_2">Tab2</string>
+    <string name="tab_3">Tab3</string>
+    <string name="start_challenge">START CHALLENGE</string>
+    <string name="challenge_progress">CHALLENGE PROGRESS</string>
+    <string name="dashboard">DASHBOARD</string>
 </resources>

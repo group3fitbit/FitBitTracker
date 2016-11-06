@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/challenge_progress"
+>
+
+    <ImageView
+        android:id="@+id/allUsersProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/progressbar4"
+        android:background="@layout/gradient"
+        />
+    <TextView
+        android:id="@+id/start"
+        android:layout_height="14dp"
+        android:layout_width="40dp"
+        android:text="@string/Start"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/end"
+        android:layout_height="14dp"
+        android:layout_width="27dp"
+        android:text="@string/End"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="right"
+        />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_height="15dp"
+        android:layout_width="50dp"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="5dp"
+        />
+
+    <ImageView
+        android:id="@+id/user1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="left"
+        android:clickable="true"/>
+    <ImageView
+        android:id="@+id/user2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="left"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/user3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="left"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/user4"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="left"
+        android:clickable="true"/>
+
+
+    <ImageView
+        android:id="@+id/user5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="65dp"
+        android:layout_gravity="left"
+        android:clickable="true"/>
+
+
+
+    <TextView
+        android:id="@+id/testText"
+        android:layout_below="@id/allUsersProgressBar"
+        android:layout_marginLeft="5dp"
+        android:gravity="top|center"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorAccent"/>
+
+</FrameLayout>

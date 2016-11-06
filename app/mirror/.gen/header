@@ -1,0 +1,9 @@
+#Automatically generated header file. Editing this file may cause problems.
+#Sat Sep 24 19:58:40 PDT 2016
+serverVersion=2.5.9
+dexState=NO_CHANGE
+package=tempreture.android.csulb.edu.fitbitapp
+version=20
+serverVersionCode=70
+dexManagerName=ExtractFromApkDexManager
+appTheme=@style/AppTheme
