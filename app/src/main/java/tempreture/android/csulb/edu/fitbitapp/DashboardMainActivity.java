@@ -73,7 +73,8 @@ public class DashboardMainActivity extends AppCompatActivity {
 
     }
 
-    public void test(View v) {
+    public void openDetailActivity(View v) {
+        //TODO the detail activity should be calling the correct detail activity
         Intent intent = new Intent(getApplicationContext(), DashBoardDetailActivity.class);
         startActivity(intent);
     }
@@ -82,11 +83,31 @@ public class DashboardMainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        getStepsFromWeb(31);
-        textView_dashboard_steps.setText(dc.getTodaySteps());
+        loadDataFromServer();
+        reloadDataToView();
     }
 
-    public void getStepsFromWeb(int days){
+    private void reloadDataToView() {
+        textView_dashboard_steps.setText(dc.getTodaySteps());
+
+    }
+
+    /**
+     * This Method loads all the data from the webservice
+     */
+    private void loadDataFromServer() {
+        loadDataFromServer(DataType.STEPS);
+        loadDataFromServer(DataType.DISTANCE);
+        loadDataFromServer(DataType.AVRGHEARTRATE);
+        loadDataFromServer(DataType.MAXHEARTRATE);
+        loadDataFromServer(DataType.MINHEARTRATE);
+        loadDataFromServer(DataType.ELEVATION);
+        loadDataFromServer(DataType.TIMEACTIVE);
+        loadDataFromServer(DataType.CALORIES);
+    }
+
+    private void loadDataFromServer(DataType dt){
+        int days = 31;
         // get calendar object of today - inputed number of days
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -days);
@@ -99,13 +120,34 @@ public class DashboardMainActivity extends AppCompatActivity {
         int objLen;
 
         try {
-            JSONArray stepsArray = stepsObj.getJSONArray("activities-steps");
-            objLen = stepsArray.length();
-            List<String> consoleList = new ArrayList<>();
-            for (int i=objLen-1; i>=0; i--){
-                stepsObj = stepsArray.getJSONObject(i);
-                dc.addSteppsEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+            switch(dt)  {
+                case STEPS:
+                    JSONArray stepsArray = stepsObj.getJSONArray("activities-steps");
+                    objLen = stepsArray.length();
+
+                    for (int i=objLen-1; i>=0; i--){
+                        stepsObj = stepsArray.getJSONObject(i);
+                        dc.addSteppsEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                    }
+                    break;
+                case DISTANCE:
+                    break;
+                case AVRGHEARTRATE:
+                    break;
+                case MAXHEARTRATE:
+                    break;
+                case MINHEARTRATE:
+                    break;
+                case CALORIES:
+                    break;
+                case ELEVATION:
+                    break;
+                case TIMEACTIVE:
+                    break;
+                default:
+                    return;
             }
+
         }
         catch (JSONException e){
             Log.e("ERROR", e.getMessage(), e);
