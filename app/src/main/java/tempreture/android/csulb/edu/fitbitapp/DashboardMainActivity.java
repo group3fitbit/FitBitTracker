@@ -20,9 +20,7 @@ import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -46,7 +44,7 @@ public class DashboardMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_main);
-        dc =  DataContainer.getInstance();
+        dc = DataContainer.getInstance();
         initViewElements();
 
 /* start toolbar----------------------------------------------------------------*/
@@ -65,17 +63,17 @@ public class DashboardMainActivity extends AppCompatActivity {
         this.textView_dashboard_steps = (TextView) findViewById(R.id.textView_dashboard_steps);
         this.textView_dashboard_distance = (TextView) findViewById(R.id.textView_dashboard_distance);
         this.textView_dashboard_calories = (TextView) findViewById(R.id.textView_dashboard_calories);
-        this.textView_dashboard_avrgHeartrate = (TextView) findViewById(R.id.textView_dashboard_avrgHeartrate);
-        this.textView_dashboard_maxHeartrate = (TextView) findViewById(R.id.textView_dashboard_maxHeartrate);
-        this.textView_dashboard_minHeartrate = (TextView) findViewById(R.id.textView_dashboard_minHeartrate);
+//        this.textView_dashboard_avrgHeartrate = (TextView) findViewById(R.id.textView_dashboard_avrgHeartrate);
+//        this.textView_dashboard_maxHeartrate = (TextView) findViewById(R.id.textView_dashboard_maxHeartrate);
+//        this.textView_dashboard_minHeartrate = (TextView) findViewById(R.id.textView_dashboard_minHeartrate);
         this.textView_dashboard_elevation = (TextView) findViewById(R.id.textView_dashboard_elevation);
         this.textView_dashboard_timeActive = (TextView) findViewById(R.id.textView_dashboard_timeActive);
 
     }
 
     public void openDetailActivity(View v) {
-        //TODO the detail activity should be calling the correct detail activity
         Intent intent = new Intent(getApplicationContext(), DashBoardDetailActivity.class);
+        intent.putExtra("datatype", v.getId());
         startActivity(intent);
     }
 
@@ -89,7 +87,10 @@ public class DashboardMainActivity extends AppCompatActivity {
 
     private void reloadDataToView() {
         textView_dashboard_steps.setText(dc.getTodaySteps());
-
+        textView_dashboard_calories.setText(dc.getTodayCalories());
+        textView_dashboard_distance.setText(dc.getTodayDistance() + " mi");
+        textView_dashboard_elevation.setText(dc.getTodayElevation() + " Floors");
+        textView_dashboard_timeActive.setText(dc.getTodayTimeActive() + " min");
     }
 
     /**
@@ -106,31 +107,42 @@ public class DashboardMainActivity extends AppCompatActivity {
         loadDataFromServer(DataType.CALORIES);
     }
 
-    private void loadDataFromServer(DataType dt){
-        int days = 31;
+    private void loadDataFromServer(DataType dt) {
+        int days = 13;
         // get calendar object of today - inputed number of days
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, -days);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String date = df.format(c.getTime());
 
-        String url = "https://api.fitbit.com/1/user/-/activities/steps/date/" + date + "/today.json";
-        String jsonString = FitbitApi.getData(url, getAccess());
-        JSONObject stepsObj = FitbitApi.convertStringToJson(jsonString);
+        String url;//= "https://api.fitbit.com/1/user/-/activities/steps/date/" + date + "/today.json";
+        String jsonString;// = FitbitApi.getData(url, getAccess());
+        JSONObject stepsObj;// = FitbitApi.convertStringToJson(jsonString);
         int objLen;
 
         try {
-            switch(dt)  {
+            switch (dt) {
                 case STEPS:
+                    url = "https://api.fitbit.com/1/user/-/activities/steps/date/" + date + "/today.json";
+                    jsonString = FitbitApi.getData(url, getAccess());
+                    stepsObj = FitbitApi.convertStringToJson(jsonString);
                     JSONArray stepsArray = stepsObj.getJSONArray("activities-steps");
                     objLen = stepsArray.length();
-
-                    for (int i=objLen-1; i>=0; i--){
+                    for (int i = objLen - 1; i >= 0; i--) {
                         stepsObj = stepsArray.getJSONObject(i);
                         dc.addSteppsEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
                     }
                     break;
                 case DISTANCE:
+                    url = "https://api.fitbit.com/1/user/-/activities/distance/date/" + date + "/today.json";
+                    jsonString = FitbitApi.getData(url, getAccess());
+                    stepsObj = FitbitApi.convertStringToJson(jsonString);
+                    JSONArray distanceArray = stepsObj.getJSONArray("activities-distance");
+                    objLen = distanceArray.length();
+                    for (int i = objLen - 1; i >= 0; i--) {
+                        stepsObj = distanceArray.getJSONObject(i);
+                        dc.addDistanceEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                    }
                     break;
                 case AVRGHEARTRATE:
                     break;
@@ -139,26 +151,51 @@ public class DashboardMainActivity extends AppCompatActivity {
                 case MINHEARTRATE:
                     break;
                 case CALORIES:
+                    url = "https://api.fitbit.com/1/user/-/activities/calories/date/" + date + "/today.json";
+                    jsonString = FitbitApi.getData(url, getAccess());
+                    stepsObj = FitbitApi.convertStringToJson(jsonString);
+                    JSONArray caloriesArray = stepsObj.getJSONArray("activities-calories");
+                    objLen = caloriesArray.length();
+                    for (int i = objLen - 1; i >= 0; i--) {
+                        stepsObj = caloriesArray.getJSONObject(i);
+                        dc.addCaloriesEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                    }
                     break;
                 case ELEVATION:
+                    url = "https://api.fitbit.com/1/user/-/activities/elevation/date/" + date + "/today.json";
+                    jsonString = FitbitApi.getData(url, getAccess());
+                    stepsObj = FitbitApi.convertStringToJson(jsonString);
+                    JSONArray elevationArray = stepsObj.getJSONArray("activities-elevation");
+                    objLen = elevationArray.length();
+                    for (int i = objLen - 1; i >= 0; i--) {
+                        stepsObj = elevationArray.getJSONObject(i);
+                        dc.addElevationsEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                    }
                     break;
                 case TIMEACTIVE:
+                    url = "https://api.fitbit.com/1/user/-/activities/minutesVeryActive/date/" + date + "/today.json";
+                    jsonString = FitbitApi.getData(url, getAccess());
+                    stepsObj = FitbitApi.convertStringToJson(jsonString);
+                    JSONArray timeactiveArray = stepsObj.getJSONArray("activities-minutesVeryActive");
+                    objLen = timeactiveArray.length();
+                    for (int i = objLen - 1; i >= 0; i--) {
+                        stepsObj = timeactiveArray.getJSONObject(i);
+                        dc.addTimeactiveEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                    }
                     break;
                 default:
                     return;
             }
 
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             Log.e("ERROR", e.getMessage(), e);
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("ERROR", e.getMessage(), e);
         }
     }
 
-    private String getAccess(){
-        try{
+    private String getAccess() {
+        try {
             /*
             if (encrypted.equals("NULL")){
                 return "NULL";
@@ -168,43 +205,43 @@ public class DashboardMainActivity extends AppCompatActivity {
             String decrypted = Encryptor.decrypt(d.toString(), encrypted);
             return decrypted;
             */
-            if (PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("AUTH_TOKEN", "NULL").equals("NULL")){
+            if (PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("AUTH_TOKEN", "NULL").equals("NULL")) {
                 return "NULL";
             }
             String dec = Encryptor.decrypt((new Timestamp(getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).firstInstallTime)).toString(),
                     PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("AUTH_TOKEN", "NULL"));
-            if (dec == null){
+            if (dec == null) {
                 throw new PackageManager.NameNotFoundException();
             }
             return dec;
-        }
-        catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             Log.e("ERROR", e.getMessage(), e);
             return "NULL";
         }
     }
+
     /* start menu ----------------------------------------------------------------- */
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.viewmenu, menu);
         menu.findItem(R.id.dashboard).setVisible(false);//disable dashboard
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.dashboard: //(id == R.id.start_challenge) {
-                Toast.makeText(DashboardMainActivity.this,"dashboard",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardMainActivity.this, "dashboard", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.start_challenge: //(id == R.id.start_challenge) {
-                Toast.makeText(DashboardMainActivity.this,"start challenge",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardMainActivity.this, "start challenge", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.challenge_progress:// (id == R.id.challenge_progress) {
-                Toast.makeText(DashboardMainActivity.this,"challenge progress",Toast.LENGTH_SHORT).show();
-                 //setContentView.setView(R.layout.user_progress_list);
-                 Intent i = new Intent(DashboardMainActivity.this, UserProgress.class);
-                 startActivity(i);
+                Toast.makeText(DashboardMainActivity.this, "challenge progress", Toast.LENGTH_SHORT).show();
+                //setContentView.setView(R.layout.user_progress_list);
+                Intent i = new Intent(DashboardMainActivity.this, UserProgress.class);
+                startActivity(i);
                 return true;
         }
         return super.onOptionsItemSelected(item);

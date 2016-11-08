@@ -1,8 +1,6 @@
 package tempreture.android.csulb.edu.fitbitapp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Adrian on 04.11.2016.
@@ -13,12 +11,12 @@ import java.util.Map;
  */
 public class DataContainer {
     private static DataContainer dc;
-    HashMap<String, String> steps;
-    HashMap<String, String> distance;
-    HashMap<String, String> elevation;
-    HashMap<String, String> avrgHeartrate; //TODO have to take a look into it
-    HashMap<String, String> timeActive;
-    HashMap<String, String> calories;
+    private ArrayList<DataEntry> steps;
+    private ArrayList<DataEntry> distance;
+    private ArrayList<DataEntry> elevation;
+    private ArrayList<DataEntry> avrgHeartrate;
+    private ArrayList<DataEntry> timeActive;
+    private ArrayList<DataEntry> calories;
 
     public static synchronized DataContainer getInstance() {
         if (dc == null) {
@@ -28,67 +26,79 @@ public class DataContainer {
     }
 
     private DataContainer() {
-        steps = new HashMap<String, String>();
-        distance = new HashMap<String, String>();
-        elevation = new HashMap<String, String>();
-        avrgHeartrate = new HashMap<String, String>();
-        timeActive = new HashMap<String, String>();
-        calories = new HashMap<String, String>();
+        steps = new ArrayList<DataEntry>();
+        distance = new ArrayList<DataEntry>();
+        elevation = new ArrayList<DataEntry>();
+        avrgHeartrate = new ArrayList<DataEntry>();
+        timeActive = new ArrayList<DataEntry>();
+        calories = new ArrayList<DataEntry>();
     }
 
     public String getTodaySteps() {
-        Map.Entry newestEntry;
-        for (Map.Entry<String, String> entry : steps.entrySet()) {
+        return steps.get(0).getValue();
+    }
 
-        }
-        return "";
+    public String getTodayDistance() {
+        return distance.get(0).getValue();
+    }
+
+    public String getTodayElevation() {
+        return elevation.get(0).getValue();
+    }
+
+    public String getTodayTimeActive() {
+        return timeActive.get(0).getValue();
+    }
+
+    public String getTodayCalories() {
+        return calories.get(0).getValue();
     }
 
     public void addSteppsEntry(String date, String value) {
-        steps.put(date, value);
+        steps.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getSteps() {
+    public ArrayList<DataEntry> getSteps() {
         return steps;
     }
 
     public void addDistanceEntry(String date, String value) {
-        distance.put(date, value);
+        distance.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getDistance() {
+    public ArrayList<DataEntry> getDistance() {
         return distance;
     }
 
     public void addElevationsEntry(String date, String value) {
-        elevation.put(date, value);
+        elevation.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getElevation() {
+    public ArrayList<DataEntry> getElevation() {
         return elevation;
     }
 
     public void addAvrgHeartrateEntry(String date, String value) {
-        avrgHeartrate.put(date, value);
+        avrgHeartrate.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getAvrgHeartrate() {
+    public ArrayList<DataEntry> getAvrgHeartrate() {
         return avrgHeartrate;
     }
 
     public void addTimeactiveEntry(String date, String value) {
-        timeActive.put(date, value);
+        timeActive.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getTimeActive() {
+    public ArrayList<DataEntry> getTimeActive() {
         return timeActive;
     }
 
     public void addCaloriesEntry(String date, String value) {
-        calories.put(date, value);
+        calories.add(new DataEntry(date, value));
     }
 
-    public HashMap<String, String> getCalories() {
+    public ArrayList<DataEntry> getCalories() {
         return calories;
     }
 }

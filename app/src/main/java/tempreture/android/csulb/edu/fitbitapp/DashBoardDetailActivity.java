@@ -8,14 +8,11 @@ import android.widget.LinearLayout;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.BarChart;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-import java.text.NumberFormat;
 
 /**
  * Created by Adrian on 03.11.2016.
@@ -28,59 +25,63 @@ public class DashBoardDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_detail);
-//        createGraph();
-        drawChart();
-    }
+        int callingId = (int) getIntent().getSerializableExtra("datatype");
 
-    private void createGraph() {
-        XYSeries xySeries = new XYSeries("Sample Data!");
-        XYMultipleSeriesDataset series = new XYMultipleSeriesDataset();
-
-        for(int i = 0; i < 10; i++) {
-            xySeries.addAnnotation("day " + i, i, i);
+        if (callingId == R.id.dashbordMain_StepsCard) {
+            drawChart(DataType.STEPS);
+        } else if (callingId == R.id.dashbordMain_DistanceCard) {
+            drawChart(DataType.DISTANCE);
+        } else if (callingId == R.id.dashbordMain_CaloriesCard) {
+            drawChart(DataType.CALORIES);
+        } else if (callingId == R.id.dashbordMain_TimeActiveCard) {
+            drawChart(DataType.TIMEACTIVE);
+        } else if (callingId == R.id.dashbordMain_ElevationCard) {
+            drawChart(DataType.ELEVATION);
         }
-        series.addSeries(xySeries);
 
-        // Now we create the renderer
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setLineWidth(2);
-        renderer.setColor(Color.RED);
-        // Include low and max value
-        renderer.setDisplayBoundingPoints(true);
-        // we add point markers
-        renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setPointStrokeWidth(3);
-
-        XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
-
-        // We want to avoid black border
-        mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00)); // transparent margins
-// Disable Pan on two axis
-        mRenderer.setPanEnabled(false, false);
-        mRenderer.setYAxisMax(35);
-        mRenderer.setYAxisMin(0);
-        mRenderer.setShowGrid(true); // we show the grid
-
-        GraphicalView chartView = ChartFactory.getBarChartView(this, series, mRenderer, BarChart.Type.DEFAULT);
-
-        LinearLayout chartContainer = (LinearLayout) findViewById(R.id.chart);
-        chartContainer.addView(chartView,0);
     }
 
-    private String[] mMonth = new String[] {
-            "Jan", "Feb" , "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug" , "Sep", "Oct", "Nov", "Dec"};
 
-    private void drawChart(){
-        int[] x_values = { 0,1,2,3,4,5,6,7};
-        int[] y_values = { 1000,1500,1700,2000,1600,3000,2200,900};
+//    private String[] mMonth = new String[]{
+//            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+//            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
+    private void drawChart(DataType dt) {
+        DataContainer dc = DataContainer.getInstance();
+        int[] x_values = {13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+//        int[] x_values = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
         // Creating an  XYSeries for Expense
         XYSeries expenseSeries = new XYSeries("Expense");
         // Adding data to Expense Series
-        for(int i=0;i<x_values.length;i++){
-            expenseSeries.add(x_values[i], y_values[i]);
+        for (int i = x_values.length - 1; i >= 0; i--) {
+            switch(dt)  {
+                case STEPS:
+                    expenseSeries.add(x_values[i], Double.parseDouble(dc.getSteps().get(i).getValue()));
+                    break;
+                case DISTANCE:
+                    expenseSeries.add(x_values[i], Double.parseDouble(dc.getDistance().get(i).getValue()));
+                    break;
+                case AVRGHEARTRATE:
+                    break;
+                case MAXHEARTRATE:
+                    break;
+                case MINHEARTRATE:
+                    break;
+                case CALORIES:
+                    expenseSeries.add(x_values[i], Double.parseDouble(dc.getCalories().get(i).getValue()));
+                    break;
+                case ELEVATION:
+                    expenseSeries.add(x_values[i], Double.parseDouble(dc.getElevation().get(i).getValue()));
+                    break;
+                case TIMEACTIVE:
+                    expenseSeries.add(x_values[i], Double.parseDouble(dc.getTimeActive().get(i).getValue()));
+                    break;
+                default:
+                    return;
+            }
         }
+
+
         // Creating a dataset to hold each series
 
         // Adding Expense Series to the dataset
@@ -98,26 +99,57 @@ public class DashBoardDetailActivity extends AppCompatActivity {
         multiRenderer.setShowGrid(true);
         multiRenderer.setYLabelsAngle(270);
         multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
-        multiRenderer.setAxisTitleTextSize(20);
+//        multiRenderer.setAxisTitleTextSize(20);
         multiRenderer.setShowLegend(false);
         multiRenderer.setZoomButtonsVisible(false);
-        multiRenderer.setChartTitle("Steps");
-        multiRenderer.setChartTitleTextSize(36);
+        multiRenderer.setChartTitleTextSize(70);
         multiRenderer.setZoomButtonsVisible(false);
-        //Disable Y-Axis scrolling
+        //Disable/Enable Axis scrolling
         multiRenderer.setPanEnabled(true, true);
         multiRenderer.setYAxisMin(0.0);
-        //Sets the scrolling limits xMin, xMax, yMin, yMax
-        multiRenderer.setPanLimits(new double[] {-1, 9, 0, 3100});
         multiRenderer.setMarginsColor(Color.argb(1000, 255, 255, 255));
-        multiRenderer.setLabelsTextSize(20);
-        multiRenderer.setZoomEnabled(false, false);
-        multiRenderer.setBarSpacing(1);
-        for(int i=0;i<x_values.length;i++){
-            multiRenderer.addXTextLabel(i, mMonth[i]);
+        multiRenderer.setLabelsTextSize(40);
+//        multiRenderer.setZoomEnabled(false, false);
+        multiRenderer.setShowGridX(false);
+//        multiRenderer.setBarSpacing(1);
+        int count = 1;
+        for (int i = 0; i < x_values.length - 1; i++) {
+            if (count == 1) {
+                multiRenderer.addXTextLabel(i, dc.getSteps().get(13 - i).getDate().substring(5));
+                count = 0;
+            } else {
+                count++;
+            }
+        }
+        switch(dt)  {
+            case STEPS:
+                multiRenderer.setChartTitle("Steps");
+                break;
+            case DISTANCE:
+                multiRenderer.setChartTitle("Distance");
+                break;
+            case AVRGHEARTRATE:
+                break;
+            case MAXHEARTRATE:
+                break;
+            case MINHEARTRATE:
+                break;
+            case CALORIES:
+                multiRenderer.setChartTitle("Calories");
+                break;
+            case ELEVATION:
+                multiRenderer.setChartTitle("Elevation");
+                break;
+            case TIMEACTIVE:
+                multiRenderer.setChartTitle("Time Active");
+                break;
+            default:
+                return;
         }
         // Adding expenseRenderer to multipleRenderer
         multiRenderer.addSeriesRenderer(renderer);
+        //        Sets the scrolling limits xMin, xMax, yMin, yMax
+        multiRenderer.setPanLimits(new double[]{-1, multiRenderer.getXAxisMax() + 1, 0, multiRenderer.getYAxisMax() + 200});
         // Getting a reference to LinearLayout of the MainActivity Layout
         LinearLayout chartContainer = (LinearLayout) findViewById(R.id.chart);
         // Creating a Line Chart
@@ -126,5 +158,5 @@ public class DashBoardDetailActivity extends AppCompatActivity {
         chartContainer.addView(chart);
     }
 
-
 }
+

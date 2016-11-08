@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#94D7E4"
->
+    android:background="#94D7E4">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/dashboard_toolbar"
@@ -27,9 +25,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-
-
         <TextView
             android:text="@string/dashboard_title"
             android:layout_width="match_parent"
@@ -49,6 +44,7 @@
             android:paddingTop="3dp">
 
             <LinearLayout
+                android:id="@+id/dashbordMain_StepsCard"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -86,12 +82,15 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/dashbordMain_DistanceCard"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:background="@drawable/border"
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="5dp"
+                android:onClick="openDetailActivity">
+
                 <TextView
                     android:text="6.3 Miles"
                     android:layout_width="match_parent"
@@ -123,6 +122,90 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <LinearLayout
+                android:id="@+id/dashbordMain_ElevationCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:onClick="openDetailActivity"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_dashboard_elevation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="11"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+
+                <ImageView
+                    android:id="@+id/imageView_dashboard_elevation"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/stairs" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_elevation"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dashbordMain_TimeActiveCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:onClick="openDetailActivity"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_dashboard_timeActive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="8h 22m"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+
+                <ImageView
+                    android:id="@+id/imageView_dashboard_timeActive"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/heart" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_timeActive"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,12 +213,14 @@
             android:paddingTop="3dp">
 
             <LinearLayout
+                android:id="@+id/dashbordMain_CaloriesCard"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:background="@drawable/border"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="5dp"
+                android:onClick="openDetailActivity">
 
                 <TextView
                     android:text="999"
@@ -165,199 +250,124 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:layout_marginLeft="5dp">
-                <TextView
-                    android:text="62"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_dashboard_avrgHeartrate"
-                    android:textSize="24sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+                android:layout_weight="0.5"></LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:background="@drawable/border"-->
+                <!--android:layout_marginLeft="5dp">-->
+                <!--<TextView-->
+                    <!--android:text="62"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView_dashboard_avrgHeartrate"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
 
 
-                <ImageView
-                    android:src="@drawable/heart"
-                    android:id="@+id/imageView_dashboard_avrgHeartrate"
-                    android:layout_height="60dp"
-                    android:layout_width="60dp"
-                    android:layout_gravity="center" />
+                <!--<ImageView-->
+                    <!--android:src="@drawable/heart"-->
+                    <!--android:id="@+id/imageView_dashboard_avrgHeartrate"-->
+                    <!--android:layout_height="60dp"-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_gravity="center" />-->
 
-                <TextView
-                    android:text="@string/dashboard_avrgHeartrate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView14"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+                <!--<TextView-->
+                    <!--android:text="@string/dashboard_avrgHeartrate"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView14"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingBottom="3dp"-->
+            <!--android:paddingTop="3dp">-->
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dp">
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:background="@drawable/border"-->
+                <!--android:layout_marginRight="5dp">-->
 
-                <TextView
-                    android:text="42"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_dashboard_minHeartrate"
-                    android:textSize="24sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
-
-
-                <ImageView
-                    android:src="@drawable/heart_min"
-                    android:id="@+id/imageView_dashboard_minHeartrate"
-                    android:layout_height="60dp"
-                    android:layout_width="60dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:text="@string/dashboard_minHeartrate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView13"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:layout_marginLeft="5dp">
-                <TextView
-                    android:text="169"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_dashboard_maxHeartrate"
-                    android:textSize="24sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+                <!--<TextView-->
+                    <!--android:text="42"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView_dashboard_minHeartrate"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
 
 
-                <ImageView
-                    android:src="@drawable/heart_max"
-                    android:id="@+id/imageView_dashboard_maxHeartrate"
-                    android:layout_height="60dp"
-                    android:layout_width="60dp"
-                    android:layout_gravity="center" />
+                <!--<ImageView-->
+                    <!--android:src="@drawable/heart_min"-->
+                    <!--android:id="@+id/imageView_dashboard_minHeartrate"-->
+                    <!--android:layout_height="60dp"-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_gravity="center" />-->
 
-                <TextView
-                    android:text="@string/dashboard_maxHeartrate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView18"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+                <!--<TextView-->
+                    <!--android:text="@string/dashboard_minHeartrate"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView13"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
+            <!--</LinearLayout>-->
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dp">
-
-                <TextView
-                    android:text="11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_dashboard_elevation"
-                    android:textSize="24sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:background="@drawable/border"-->
+                <!--android:layout_marginLeft="5dp">-->
+                <!--<TextView-->
+                    <!--android:text="169"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView_dashboard_maxHeartrate"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
 
 
-                <ImageView
-                    android:src="@drawable/stairs"
-                    android:id="@+id/imageView_dashboard_elevation"
-                    android:layout_height="60dp"
-                    android:layout_width="60dp"
-                    android:layout_gravity="center" />
+                <!--<ImageView-->
+                    <!--android:src="@drawable/heart_max"-->
+                    <!--android:id="@+id/imageView_dashboard_maxHeartrate"-->
+                    <!--android:layout_height="60dp"-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_gravity="center" />-->
 
-                <TextView
-                    android:text="@string/dashboard_elevation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView19"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:text="@string/dashboard_maxHeartrate"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/textView18"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="#000000" />-->
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:layout_marginLeft="5dp">
-                <TextView
-                    android:text="8h 22m"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView_dashboard_timeActive"
-                    android:textSize="24sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
+            <!--</LinearLayout>-->
 
-
-                <ImageView
-                    android:src="@drawable/heart"
-                    android:id="@+id/imageView_dashboard_timeActive"
-                    android:layout_height="60dp"
-                    android:layout_width="60dp"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:text="@string/dashboard_timeActive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView20"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:textColor="#000000" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         </LinearLayout>
     </ScrollView>

@@ -38,7 +38,7 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_dashboard_main);
 
         // initialize listview
         console = (ListView)findViewById(R.id.resultWindow);
