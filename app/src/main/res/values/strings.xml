@@ -28,6 +28,15 @@
     <string name="dashboard_timeActive">Time Active</string>
     <string name="dashboard_distance">Distance</string>
 
+    <!--Spinner Challenge Types -->
+    <string-array name="challenge_types">
+        <item>Steps</item>
+        <item>Calories</item>
+        <item>Floors Climbed</item>
+        <item>Distance Traveled</item>
+        <item>Hours Active</item>
+    </string-array>
+
     <!--ming's additions-->
     <string name="challenge_progression">Challenge Progression</string>
     <string name="user_progress">User Progress</string>
