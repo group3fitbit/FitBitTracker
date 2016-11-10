@@ -1,0 +1,81 @@
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orienteation="vertical">
+
+    <ListView
+        android:id="@+id/current_challenges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    />
+
+    <ListView
+        android:id="@+id/past_challenges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</RelativeLayout>
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:gravity="center_vertical"
+            android:text="CURRENT CHALLENGES"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+
+            />
+
+        <ListView
+            android:id="@+id/current"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="#1c1c1c"
+            android:dividerHeight="4px"
+            android:divider="#66bbcc"
+            >
+        </ListView>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#cbcbcc" /><!--this is a line-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:text="PAST CHALLENGES"
+            android:textSize="20dp"
+            />
+
+        <ListView
+            android:id="@+id/past"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:dividerHeight="4px"
+            android:divider="#66bbcc"
+            android:background="#1c1c1c"
+
+            android:paddingLeft="5dp">
+        </ListView>
+    </LinearLayout>
+
+</ScrollView>
