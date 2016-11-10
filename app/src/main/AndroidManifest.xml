@@ -47,6 +47,16 @@
             android:exported="true"
             android:largeHeap="true">
         </activity>
+        <activity android:name=".ViewChallenges"
+            android:label="@string/view_challenges"
+            android:exported="true"
+            android:largeHeap="true">
+        </activity>
+        <activity android:name=".CreateChallengeActivity"
+            android:label="@string/create_challenge_activity"
+            android:exported="true"
+            android:largeHeap="true">
+        </activity>
     </application>
 
 </manifest>

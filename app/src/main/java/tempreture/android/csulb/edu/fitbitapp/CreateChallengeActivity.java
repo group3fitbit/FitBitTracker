@@ -104,11 +104,11 @@ public class CreateChallengeActivity extends AppCompatActivity {
         //Retrieves and Set Participants
 
         //Retrieve and Set Goal Amount
-        Integer goal = Integer.valueOf(mEditChallengeGoals.getText().toString());
+        int goal = Integer.parseInt(mEditChallengeGoals.getText().toString());
         challenge.setGoal(goal);
 
         //Retrieve and Set Bet Amount
-        Integer amount = Integer.valueOf(mEditChallengeBetAmount.getText().toString());
+        int amount = Integer.parseInt(mEditChallengeBetAmount.getText().toString());
         challenge.setBetAmount(amount);
 
         ChallengeStore.getInstance().addChallenge(challenge);

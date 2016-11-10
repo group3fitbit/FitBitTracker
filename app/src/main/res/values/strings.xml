@@ -53,4 +53,6 @@
     <string name="start_challenge">START CHALLENGE</string>
     <string name="challenge_progress">CHALLENGE PROGRESS</string>
     <string name="dashboard">DASHBOARD</string>
+    <string name="view_challenges">View Challenges</string>
+    <string name="create_challenge_activity">Create New Challenge</string>
 </resources>

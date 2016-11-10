@@ -7,6 +7,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="lightBlue">#DEE3F0</color>
+    <color name="teal">#66BBCC</color>
     <color name="startGradient">#FF8CE6FE</color>
     <color name="endGradient">#FF080d20</color>
     <color name="offGreen">#4cdc62</color>

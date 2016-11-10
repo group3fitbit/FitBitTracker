@@ -60,7 +60,7 @@ public class DashboardMainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if(tabId == R.id.tab_challenges) {
-                Intent intend = new Intent(DashboardMainActivity.this, UserProgress.class);
+                Intent intend = new Intent(DashboardMainActivity.this, ViewChallenges.class);
                 startActivity(intend);
                 }
             }
@@ -71,6 +71,16 @@ public class DashboardMainActivity extends AppCompatActivity {
             public void onTabReSelected(@IdRes int tabId) {
 //                Intent intent = new Intent(DashboardMainActivity.this, DashboardMainActivity.class);
 //                startActivity(intent);
+            }
+        });
+
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_start_challenge) {
+                    Intent intend = new Intent(DashboardMainActivity.this, CreateChallengeActivity.class);
+                    startActivity(intend);
+                }
             }
         });
 
