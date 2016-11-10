@@ -1,9 +1,11 @@
 
 
 package tempreture.android.csulb.edu.fitbitapp;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,6 +77,20 @@ public class ViewChallenges extends AppCompatActivity {
         currentChallengeList.setAdapter(currentAdapter);
         pastChallengeList.setAdapter(pastAdapter);
 
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.selectTabWithId(R.id.tab_challenges);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_dashboard) {
+                    Intent intend = new Intent(ViewChallenges.this, DashboardMainActivity.class);
+                    startActivity(intend);
+                } else if (tabId == R.id.tab_startchallenge) {
+                    Intent intent = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
 }

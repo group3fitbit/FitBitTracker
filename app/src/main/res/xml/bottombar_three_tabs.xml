@@ -5,11 +5,12 @@
         icon="@drawable/ic_dashboard"
         title="Dashboard" />
     <tab
-        id="@+id/tab_challenges"
-        icon="@drawable/ic_challenge"
-        title="Challenges" />
-    <tab
         id="@+id/tab_startchallenge"
         icon="@drawable/ic_startchallenge"
         title="Start Challenge" />
+    <tab
+        id="@+id/tab_challenges"
+        icon="@drawable/ic_challenge"
+        title="Challenges" />
+
 </tabs>

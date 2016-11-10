@@ -57,7 +57,7 @@ public class DashboardMainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if(tabId == R.id.tab_challenges) {
-                    Intent intend = new Intent(DashboardMainActivity.this, UserProgress.class);
+                    Intent intend = new Intent(DashboardMainActivity.this, ViewChallenges.class);
                     startActivity(intend);
                 } else if (tabId == R.id.tab_startchallenge) {
                     Intent intent = new Intent(DashboardMainActivity.this, CreateChallengeActivity.class);
