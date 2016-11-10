@@ -9,6 +9,8 @@
     <color name="lightBlue">#DEE3F0</color>
     <color name="startGradient">#FF8CE6FE</color>
     <color name="endGradient">#FF080d20</color>
+    <color name="offGreen">#4cdc62</color>
+    <color name="offOrange">#edbf5a</color>
     <color name="bg_light">#FAFAFA</color>
 
 
