@@ -39,9 +39,6 @@ public class DashboardMainActivity extends AppCompatActivity {
     private TextView textView_dashboard_steps;
     private TextView textView_dashboard_distance;
     private TextView textView_dashboard_calories;
-//    private TextView textView_dashboard_avrgHeartrate;
-//    private TextView textView_dashboard_maxHeartrate;
-//    private TextView textView_dashboard_minHeartrate;
     private TextView textView_dashboard_elevation;
     private TextView textView_dashboard_timeActive;
     Toolbar toolbar;
@@ -60,8 +57,11 @@ public class DashboardMainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if(tabId == R.id.tab_challenges) {
-                Intent intend = new Intent(DashboardMainActivity.this, UserProgress.class);
-                startActivity(intend);
+                    Intent intend = new Intent(DashboardMainActivity.this, UserProgress.class);
+                    startActivity(intend);
+                } else if (tabId == R.id.tab_startchallenge) {
+                    Intent intent = new Intent(DashboardMainActivity.this, CreateChallengeActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -83,9 +83,6 @@ public class DashboardMainActivity extends AppCompatActivity {
         this.textView_dashboard_steps = (TextView) findViewById(R.id.textView_dashboard_steps);
         this.textView_dashboard_distance = (TextView) findViewById(R.id.textView_dashboard_distance);
         this.textView_dashboard_calories = (TextView) findViewById(R.id.textView_dashboard_calories);
-//        this.textView_dashboard_avrgHeartrate = (TextView) findViewById(R.id.textView_dashboard_avrgHeartrate);
-//        this.textView_dashboard_maxHeartrate = (TextView) findViewById(R.id.textView_dashboard_maxHeartrate);
-//        this.textView_dashboard_minHeartrate = (TextView) findViewById(R.id.textView_dashboard_minHeartrate);
         this.textView_dashboard_elevation = (TextView) findViewById(R.id.textView_dashboard_elevation);
         this.textView_dashboard_timeActive = (TextView) findViewById(R.id.textView_dashboard_timeActive);
 
@@ -119,9 +116,6 @@ public class DashboardMainActivity extends AppCompatActivity {
     private void loadDataFromServer() {
         loadDataFromServer(DataType.STEPS);
         loadDataFromServer(DataType.DISTANCE);
-//        loadDataFromServer(DataType.AVRGHEARTRATE);
-//        loadDataFromServer(DataType.MAXHEARTRATE);
-//        loadDataFromServer(DataType.MINHEARTRATE);
         loadDataFromServer(DataType.ELEVATION);
         loadDataFromServer(DataType.TIMEACTIVE);
         loadDataFromServer(DataType.CALORIES);
@@ -161,7 +155,8 @@ public class DashboardMainActivity extends AppCompatActivity {
                     objLen = distanceArray.length();
                     for (int i = objLen - 1; i >= 0; i--) {
                         stepsObj = distanceArray.getJSONObject(i);
-                        dc.addDistanceEntry(stepsObj.getString("dateTime"), stepsObj.getString("value"));
+                        double value =Util.round(Double.parseDouble(stepsObj.getString("value")), 2);
+                        dc.addDistanceEntry(stepsObj.getString("dateTime"), String.valueOf(value));
                     }
                     break;
                 case AVRGHEARTRATE:

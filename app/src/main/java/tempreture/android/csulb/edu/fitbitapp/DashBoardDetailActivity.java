@@ -45,33 +45,11 @@ public class DashBoardDetailActivity extends AppCompatActivity {
         } else if (callingId == R.id.dashbordMain_ElevationCard) {
             drawChart(DataType.ELEVATION);
         }
-//
-//        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-//        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-//            @Override
-//            public void onTabSelected(@IdRes int tabId) {
-//                Toast.makeText(getApplicationContext(), "Tab selected", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-//            @Override
-//            public void onTabReSelected(@IdRes int tabId) {
-//                Intent intent = new Intent(getApplicationContext(), DashboardMainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
-
-
-//    private String[] mMonth = new String[]{
-//            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-//            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     private void drawChart(DataType dt) {
         DataContainer dc = DataContainer.getInstance();
         int[] x_values = {13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-//        int[] x_values = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
         // Creating an  XYSeries for Expense
         XYSeries expenseSeries = new XYSeries("Expense");
         // Adding data to Expense Series

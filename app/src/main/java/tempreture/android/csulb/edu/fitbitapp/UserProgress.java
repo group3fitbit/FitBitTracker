@@ -47,8 +47,11 @@ public class UserProgress extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if(tabId == R.id.tab_dashboard) {
-                    Intent intend = new Intent(UserProgress.this, DashboardMainActivity.class);
-                    startActivity(intend);
+                    Intent intent = new Intent(UserProgress.this, DashboardMainActivity.class);
+                    startActivity(intent);
+                } else if (tabId == R.id.tab_startchallenge) {
+                    Intent intent = new Intent(UserProgress.this, CreateChallengeActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -62,26 +65,5 @@ public class UserProgress extends AppCompatActivity {
         });
     }
 
-/* start menu ----------------------------------------------------------------- */
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.viewmenu, menu);
-        return true;
-    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-
-            case R.id.start_challenge: //(id == R.id.start_challenge) {
-                Toast.makeText(UserProgress.this,"start challenge",Toast.LENGTH_SHORT).show();
-
-                Intent in = new Intent(UserProgress.this, UserProgress.class);
-                startActivity(in);
-                return true;
-
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-/* end menu -----------------------------------------------------------*/
 }
