@@ -65,15 +65,6 @@ public class DashboardMainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-            @Override
-            public void onTabReSelected(@IdRes int tabId) {
-//                Intent intent = new Intent(DashboardMainActivity.this, DashboardMainActivity.class);
-//                startActivity(intent);
-            }
-        });
-
     }
 
     /**

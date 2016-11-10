@@ -55,14 +55,6 @@ public class UserProgress extends AppCompatActivity {
                 }
             }
         });
-
-        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-            @Override
-            public void onTabReSelected(@IdRes int tabId) {
-//                Intent intent = new Intent(UserProgress.this, UserProgress.class);
-//                startActivity(intent);
-            }
-        });
     }
 
 
