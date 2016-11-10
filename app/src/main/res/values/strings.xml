@@ -31,7 +31,7 @@
     <!--Spinner Challenge Types -->
     <string-array name="challenge_types">
         <item>Steps</item>
-        <item>Calories</item>
+        <item>Calories Burn</item>
         <item>Floors Climbed</item>
         <item>Distance Traveled</item>
         <item>Hours Active</item>

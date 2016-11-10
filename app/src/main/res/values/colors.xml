@@ -12,6 +12,7 @@
     <color name="offGreen">#4cdc62</color>
     <color name="offOrange">#edbf5a</color>
     <color name="bg_light">#FAFAFA</color>
+    <color name="teal">#66BBCC</color>
 
 
 </resources>

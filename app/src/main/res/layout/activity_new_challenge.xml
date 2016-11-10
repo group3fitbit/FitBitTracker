@@ -133,31 +133,6 @@
                 android:layout_toRightOf="@+id/Goal">
             </Spinner>
 
-            <Button
-                android:text="Review Challenge Request"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClick_Review"
-                android:clickable="true"
-                android:id="@+id/Review"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/textView"
-                android:layout_toEndOf="@+id/textView"/>
-
-            <TextView
-                android:id="@+id/Cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:textSize="24sp"
-                android:clickable="true"
-                android:layout_marginRight="13dp"
-                android:layout_marginEnd="13dp"
-                android:layout_marginBottom="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toLeftOf="@+id/GoalSubTitle"
-                android:layout_toStartOf="@+id/GoalSubTitle"/>
-
 
             <EditText
                 android:layout_width="75dp"
@@ -171,9 +146,34 @@
                 android:layout_below="@+id/BetTitle"
                 android:layout_centerHorizontal="true"/>
 
+            <Button
+                android:text="Review Challenge Request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClick_Review"
+                android:clickable="true"
+                android:id="@+id/Review"
+                android:gravity="center"
+                android:layout_below="@+id/Amount"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
 
+            <TextView
+                android:id="@+id/Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:gravity="left"
+                android:layout_alignBaseline="@+id/Review"
+                android:layout_alignBottom="@+id/Review"
+                android:layout_toLeftOf="@+id/BetTitle"
+                android:layout_toStartOf="@+id/BetTitle"/>
 
         </RelativeLayout>
+
+
 
     </ScrollView>
 </LinearLayout>
