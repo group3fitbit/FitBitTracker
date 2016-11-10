@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <Button
+        android:text="Send Challenge Request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/Send"/>
+
+    <TextView
+        android:id="@+id/ChallengeTitle"
+        android:text="Title"
+        android:textSize="36sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/BetAmount"
+        android:text="Bet Amount"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Send"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="134dp"/>
+
+    <TextView
+        android:id="@+id/challengeType"
+        android:text="Challenge Type"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/BetAmount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="57dp"
+        android:layout_marginEnd="57dp"/>
+
+    <TextView
+        android:id="@+id/challengeGoal"
+        android:text="Challenge Goal"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/challengeType"
+        android:layout_alignBottom="@+id/challengeType"
+        android:layout_alignRight="@+id/ChallengeTitle"
+        android:layout_alignEnd="@+id/ChallengeTitle"
+        android:layout_marginRight="54dp"
+        android:layout_marginEnd="54dp"/>
+
+    <TextView
+        android:id="@+id/ParticipantTitle"
+        android:text="Parctipants: "
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ChallengeTitle"
+        android:layout_alignLeft="@+id/challengeGoal"
+        android:layout_alignStart="@+id/challengeGoal"
+        android:layout_marginTop="86dp"/>
+
+</RelativeLayout>
