@@ -6,46 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tempreture.android.csulb.edu.fitbitapp.UserProgress"
-    android:weightSum="0"
-    >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:titleTextColor="@color/bg_light"
-        android:textColor="@color/bg_light"
-        android:background="?attr/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+    tools:context="tempreture.android.csulb.edu.fitbitapp.UserProgress">
 
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/fragment_container1"
         android:layout_width="match_parent"
-        android:layout_height="150dp" >
+        android:layout_height="wrap_content" >
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/fragment_container2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.48">
+        android:layout_height="wrap_content">
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/frame"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end">
+        android:layout_height="wrap_content">
 
-        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-            android:id="@+id/bottom_navigation"
+
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@android:color/white" />
-
-
-    </FrameLayout>
-
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/bottombar_three_tabs" />
+    </RelativeLayout>
 </LinearLayout>
 

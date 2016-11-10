@@ -1,10 +1,17 @@
 package tempreture.android.csulb.edu.fitbitapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -38,7 +45,22 @@ public class DashBoardDetailActivity extends AppCompatActivity {
         } else if (callingId == R.id.dashbordMain_ElevationCard) {
             drawChart(DataType.ELEVATION);
         }
-
+//
+//        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+//        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+//            @Override
+//            public void onTabSelected(@IdRes int tabId) {
+//                Toast.makeText(getApplicationContext(), "Tab selected", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+//            @Override
+//            public void onTabReSelected(@IdRes int tabId) {
+//                Intent intent = new Intent(getApplicationContext(), DashboardMainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 

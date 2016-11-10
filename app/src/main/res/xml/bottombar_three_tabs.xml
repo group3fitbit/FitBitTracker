@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_dashboard"
+        icon="@drawable/ic_map_24dp"
+        title="Dashboard" />
+    <tab
+        id="@+id/tab_challenges"
+        icon="@drawable/ic_map_24dp"
+        title="Challenges" />
+    <!--<tab-->
+        <!--id="@+id/tab_friends"-->
+        <!--icon="@drawable/ic_map_24dp"-->
+        <!--title="Friends" />-->
+</tabs>
