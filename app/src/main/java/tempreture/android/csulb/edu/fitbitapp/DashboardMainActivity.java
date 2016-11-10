@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,6 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,9 +39,9 @@ public class DashboardMainActivity extends AppCompatActivity {
     private TextView textView_dashboard_steps;
     private TextView textView_dashboard_distance;
     private TextView textView_dashboard_calories;
-    private TextView textView_dashboard_avrgHeartrate;
-    private TextView textView_dashboard_maxHeartrate;
-    private TextView textView_dashboard_minHeartrate;
+//    private TextView textView_dashboard_avrgHeartrate;
+//    private TextView textView_dashboard_maxHeartrate;
+//    private TextView textView_dashboard_minHeartrate;
     private TextView textView_dashboard_elevation;
     private TextView textView_dashboard_timeActive;
     Toolbar toolbar;
@@ -47,13 +54,26 @@ public class DashboardMainActivity extends AppCompatActivity {
         dc = DataContainer.getInstance();
         initViewElements();
 
-/* start toolbar----------------------------------------------------------------*/
-        toolbar = (Toolbar) findViewById(R.id.dashboard_toolbar);
-        setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
-        getSupportActionBar().setTitle("DASHBOARD");
-        toolbar.setTitleTextColor(Color.WHITE);
-/* end toolbar --------------------------------------------------------------------*/
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.selectTabWithId(R.id.tab_dashboard);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_challenges) {
+                Intent intend = new Intent(DashboardMainActivity.this, UserProgress.class);
+                startActivity(intend);
+                }
+            }
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+//                Intent intent = new Intent(DashboardMainActivity.this, DashboardMainActivity.class);
+//                startActivity(intent);
+            }
+        });
+
     }
 
     /**
@@ -99,9 +119,9 @@ public class DashboardMainActivity extends AppCompatActivity {
     private void loadDataFromServer() {
         loadDataFromServer(DataType.STEPS);
         loadDataFromServer(DataType.DISTANCE);
-        loadDataFromServer(DataType.AVRGHEARTRATE);
-        loadDataFromServer(DataType.MAXHEARTRATE);
-        loadDataFromServer(DataType.MINHEARTRATE);
+//        loadDataFromServer(DataType.AVRGHEARTRATE);
+//        loadDataFromServer(DataType.MAXHEARTRATE);
+//        loadDataFromServer(DataType.MINHEARTRATE);
         loadDataFromServer(DataType.ELEVATION);
         loadDataFromServer(DataType.TIMEACTIVE);
         loadDataFromServer(DataType.CALORIES);
@@ -220,32 +240,5 @@ public class DashboardMainActivity extends AppCompatActivity {
         }
     }
 
-    /* start menu ----------------------------------------------------------------- */
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.viewmenu, menu);
-        menu.findItem(R.id.dashboard).setVisible(false);//disable dashboard
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.dashboard: //(id == R.id.start_challenge) {
-                Toast.makeText(DashboardMainActivity.this, "dashboard", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.start_challenge: //(id == R.id.start_challenge) {
-                Toast.makeText(DashboardMainActivity.this, "start challenge", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.challenge_progress:// (id == R.id.challenge_progress) {
-                Toast.makeText(DashboardMainActivity.this, "challenge progress", Toast.LENGTH_SHORT).show();
-                //setContentView.setView(R.layout.user_progress_list);
-                Intent i = new Intent(DashboardMainActivity.this, UserProgress.class);
-                startActivity(i);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-/* end menu -----------------------------------------------------------*/
 
 }
