@@ -5,6 +5,10 @@
         icon="@drawable/ic_dashboard"
         title="Dashboard" />
     <tab
+        id="@+id/tab_trophies"
+        icon="@drawable/ic_trophies"
+        title="Throphies" />
+    <tab
         id="@+id/tab_startchallenge"
         icon="@drawable/ic_startchallenge"
         title="Start Challenge" />
@@ -12,5 +16,4 @@
         id="@+id/tab_challenges"
         icon="@drawable/ic_challenge"
         title="Challenges" />
-
 </tabs>

@@ -88,6 +88,9 @@ public class ViewChallenges extends AppCompatActivity {
                 } else if (tabId == R.id.tab_startchallenge) {
                     Intent intent = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
                     startActivity(intent);
+                }  else if (tabId == R.id.tab_trophies) {
+                    Intent intent = new Intent(ViewChallenges.this, TrophiesActivity.class);
+                    startActivity(intent);
                 }
             }
         });

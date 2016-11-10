@@ -93,6 +93,9 @@ public class CreateChallengeActivity extends AppCompatActivity {
                 } else if (tabId == R.id.tab_dashboard) {
                     Intent intent = new Intent(CreateChallengeActivity.this, DashboardMainActivity.class);
                     startActivity(intent);
+                }  else if (tabId == R.id.tab_trophies) {
+                    Intent intent = new Intent(CreateChallengeActivity.this, TrophiesActivity.class);
+                    startActivity(intent);
                 }
             }
         });

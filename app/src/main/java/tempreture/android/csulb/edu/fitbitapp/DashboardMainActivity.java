@@ -41,7 +41,6 @@ public class DashboardMainActivity extends AppCompatActivity {
     private TextView textView_dashboard_calories;
     private TextView textView_dashboard_elevation;
     private TextView textView_dashboard_timeActive;
-    Toolbar toolbar;
 
 
     @Override
@@ -62,6 +61,9 @@ public class DashboardMainActivity extends AppCompatActivity {
                 } else if (tabId == R.id.tab_startchallenge) {
                     Intent intent = new Intent(DashboardMainActivity.this, CreateChallengeActivity.class);
                     startActivity(intent);
+                } else if (tabId == R.id.tab_trophies) {
+                    Intent intent = new Intent(DashboardMainActivity.this, TrophiesActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -76,7 +78,6 @@ public class DashboardMainActivity extends AppCompatActivity {
         this.textView_dashboard_calories = (TextView) findViewById(R.id.textView_dashboard_calories);
         this.textView_dashboard_elevation = (TextView) findViewById(R.id.textView_dashboard_elevation);
         this.textView_dashboard_timeActive = (TextView) findViewById(R.id.textView_dashboard_timeActive);
-
     }
 
     public void openDetailActivity(View v) {

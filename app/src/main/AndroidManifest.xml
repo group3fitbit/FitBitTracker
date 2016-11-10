@@ -37,6 +37,12 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
+        <activity
+            android:name=".TrophiesActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+
         <activity android:name=".UserProgress"
             android:label="@string/user_progress"
             android:exported="true"
