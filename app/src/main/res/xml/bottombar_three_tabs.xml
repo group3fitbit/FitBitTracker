@@ -7,7 +7,7 @@
     <tab
         id="@+id/tab_trophies"
         icon="@drawable/ic_trophies"
-        title="Throphies" />
+        title="Trophies" />
     <tab
         id="@+id/tab_startchallenge"
         icon="@drawable/ic_startchallenge"
