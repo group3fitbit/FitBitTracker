@@ -16,6 +16,7 @@
     <TextView
         android:id="@+id/ChallengeTitle"
         android:text="Title"
+        android:textColor="@color/black"
         android:textSize="36sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,26 +27,28 @@
     <TextView
         android:text="Bet Amount:"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Send"
         android:layout_marginLeft="30dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         android:layout_marginBottom="100dp"/>
-    <TextView
-        android:text="$"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Send"
-        android:layout_marginLeft="135dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="100dp"/>
+    <!--<TextView-->
+        <!--android:id="@+id/challengeType"-->
+        <!--android:text="Challenge Type"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/Send"-->
+        <!--android:layout_marginLeft="135dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_marginBottom="100dp"/>-->
     <TextView
         android:id="@+id/BetAmount"
         android:text="0"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Send"

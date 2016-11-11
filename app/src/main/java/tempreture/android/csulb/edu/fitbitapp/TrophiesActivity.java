@@ -42,9 +42,6 @@ public class TrophiesActivity extends AppCompatActivity {
                 if (tabId == R.id.tab_challenges) {
                     Intent intend = new Intent(TrophiesActivity.this, ViewChallenges.class);
                     startActivity(intend);
-                } else if (tabId == R.id.tab_startchallenge) {
-                    Intent intent = new Intent(TrophiesActivity.this, CreateChallengeActivity.class);
-                    startActivity(intent);
                 } else if (tabId == R.id.tab_dashboard) {
                     Intent intent = new Intent(TrophiesActivity.this, DashboardMainActivity.class);
                     startActivity(intent);

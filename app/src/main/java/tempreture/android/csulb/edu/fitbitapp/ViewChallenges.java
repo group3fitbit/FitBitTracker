@@ -1,7 +1,6 @@
 
 
 package tempreture.android.csulb.edu.fitbitapp;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +9,8 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,13 +27,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static tempreture.android.csulb.edu.fitbitapp.ChallengeStore.Users;
-
 
 /* start class ------------------------------------------------------------> */
 public class ViewChallenges extends AppCompatActivity {
     public static Challenge challengeChosen = new Challenge();
     ArrayList<Dummy> allUsers = new ArrayList<Dummy>();
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.challenge_list_view);
@@ -46,18 +47,16 @@ public class ViewChallenges extends AppCompatActivity {
                 if(tabId == R.id.tab_dashboard) {
                     Intent intent = new Intent(ViewChallenges.this, DashboardMainActivity.class);
                     startActivity(intent);
-                } else if (tabId == R.id.tab_startchallenge) {
-                    Intent intent = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
-                    startActivity(intent);
                 } else if (tabId == R.id.tab_trophies) {
                     Intent intent = new Intent(ViewChallenges.this, TrophiesActivity.class);
                     startActivity(intent);
                 }
             }
         });
+
         /* end toolbar*/
         ArrayList challengeData = cs.getChallenges();
-       // cs.addChallenge(challenge1);
+        // cs.addChallenge(challenge1);
 
         ChallengeListAdapter currentAdapter = new ChallengeListAdapter(challengeData,"current"); //place your String array in place of MyString
         ChallengeListAdapter pastAdapter = new ChallengeListAdapter(challengeData,"past"); //place your String array in place of MyString
@@ -68,11 +67,11 @@ public class ViewChallenges extends AppCompatActivity {
         currentChallengeList.setAdapter(currentAdapter);
         pastChallengeList.setAdapter(pastAdapter);
 
-                final ArrayList<Challenge> tempChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
+        final ArrayList<Challenge> tempChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
         currentChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past challenge is chosen
             public void onItemClick(AdapterView arg0, View view, int position, long id){
                 challengeChosen = tempChallengeData.get(position);
-                 //Toast.makeText(ViewChallenges.this,"CHALLENGE CHOSEN: "+challengeChosen.getParticipants().get(0).getName(),Toast.LENGTH_SHORT).show();//delete me
+                //Toast.makeText(ViewChallenges.this,"CHALLENGE CHOSEN: "+challengeChosen.getParticipants().get(0).getName(),Toast.LENGTH_SHORT).show();//delete me
                 if(tempChallengeData.get(position).isPending()){
                     Toast.makeText(ViewChallenges.this,"Challenge Pending. You will be notified once your friends accept the challenge request ",Toast.LENGTH_SHORT).show();//delete me
                 }else{
@@ -89,8 +88,29 @@ public class ViewChallenges extends AppCompatActivity {
             }
         });
     }
+    /* start menu ----------------------------------------------------------------- */
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+
+            case R.id.start_challenge:
+                Intent in = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
+                startActivity(in);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+/* end menu -----------------------------------------------------------*/
 
 }//end class
+
+
 
 class ChallengeListAdapter extends BaseAdapter {
     private ArrayList mData;
@@ -118,7 +138,7 @@ class ChallengeListAdapter extends BaseAdapter {
             return mData.size();
         }else if(status.equalsIgnoreCase("current")) {
             for (Challenge c : new ArrayList<Challenge>(mData)) {
-                if (c.isOver()){ //remove anything past
+                if (c.isOver()) {//remove anything past
                     mData.remove(c);
                 }
             }

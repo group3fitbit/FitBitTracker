@@ -61,10 +61,7 @@ public class DashboardMainActivity extends AppCompatActivity {
                 if(tabId == R.id.tab_challenges) {
                     Intent intend = new Intent(DashboardMainActivity.this, ViewChallenges.class);
                     startActivity(intend);
-                } else if (tabId == R.id.tab_startchallenge) {
-                    Intent intent = new Intent(DashboardMainActivity.this, CreateChallengeActivity.class);
-                    startActivity(intent);
-                } else if (tabId == R.id.tab_trophies) {
+                }  else if (tabId == R.id.tab_trophies) {
                     Intent intent = new Intent(DashboardMainActivity.this, TrophiesActivity.class);
                     startActivity(intent);
                 }

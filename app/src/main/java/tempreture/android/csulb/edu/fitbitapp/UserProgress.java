@@ -31,28 +31,6 @@ public class UserProgress extends AppCompatActivity {
         manager.beginTransaction().replace(R.id.fragment_container1, progressfrag).commit();
         manager.beginTransaction().replace(R.id.fragment_container2, detailfrag).commit();
         super.onCreate(savedInstanceState);
-
-        /* start toolbar*/
-      /*  BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if(tabId == R.id.tab_dashboard) {
-                    Intent intent = new Intent(UserProgress.this, DashboardMainActivity.class);
-                    startActivity(intent);
-                } else if (tabId == R.id.tab_startchallenge) {
-                    Intent intent = new Intent(UserProgress.this, CreateChallengeActivity.class);
-                    startActivity(intent);
-                } else if (tabId == R.id.tab_trophies) {
-                    Intent intent = new Intent(UserProgress.this, TrophiesActivity.class);
-                    startActivity(intent);
-                } else if(tabId == R.id.tab_challenges){
-                    Intent intent = new Intent(UserProgress.this, ViewChallenges.class);
-                    startActivity(intent);
-                }
-            }
-        });*/
-        /* end toolbar*/
     }
 
 
