@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static tempreture.android.csulb.edu.fitbitapp.ProgressFrag.me;
 import static tempreture.android.csulb.edu.fitbitapp.ProgressFrag.tempUserArrayList;
+import static tempreture.android.csulb.edu.fitbitapp.ViewChallenges.challengeChosen;
 
 public class DetailFrag extends Fragment {
     @Override
@@ -50,7 +52,7 @@ class ListViewAdapter extends ArrayAdapter<String> {
     String tls[];
 
     ListViewAdapter(Context c, String[] titles, int img[]) {
-        super(c, R.layout.list_view, R.id.textView2, titles);
+        super(c, R.layout.list_view, R.id.detailDetailView, titles);
         this.context = c;
         this.images = img;
         this.tls = titles;
@@ -62,12 +64,20 @@ class ListViewAdapter extends ArrayAdapter<String> {
 
         //Getting the reference to the TextView and the ImageView
         ImageView iv = (ImageView) row.findViewById(R.id.imageView);
-        TextView tv = (TextView) row.findViewById(R.id.textView2);
+        TextView tv = (TextView) row.findViewById(R.id.detailNameView);
+        TextView tv2 = (TextView) row.findViewById(R.id.detailDetailView);
 
         //Populating the ImageView and the TextView with appropriate data
         ImageLoader imageloader = new ImageLoader();
         imageloader.loadImage(row.getResources(),iv,images[position]);
         tv.setText(tls[position]);
+
+        try {
+            if(position == challengeChosen.getParticipants().size()){
+                tv2.setText(String.valueOf((int)me.getProgress()+" "+challengeChosen.getChallengeType()));
+            }
+            tv2.setText(String.valueOf((int)challengeChosen.getParticipants().get(position).getProgress()) + " " +challengeChosen.challengeType);
+        }catch(Exception e){}
 
         return row;
     }

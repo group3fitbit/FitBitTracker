@@ -3,6 +3,7 @@ package tempreture.android.csulb.edu.fitbitapp;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.Date;
 import static tempreture.android.csulb.edu.fitbitapp.ViewChallenges.challengeChosen;
 
 public class ProgressFrag extends Fragment {
-    Dummy me = new Dummy("Me",R.drawable.me_circle,R.drawable.me);
+    public static Dummy me = new Dummy("Me",R.drawable.me_circle,R.drawable.me);
     public static ArrayList<Dummy> tempUserArrayList;
 
     public static ArrayList<ImageView> imageContainerArray = new ArrayList<ImageView>();
@@ -34,32 +35,64 @@ public class ProgressFrag extends Fragment {
         final View view = inflater.inflate(R.layout.challenge_progress, container,false);
         DataContainer dc = DataContainer.getInstance();
         ArrayList<DataEntry> steps = dc.getSteps();
+        ArrayList<DataEntry> distance = dc.getDistance();
+        ArrayList<DataEntry> calories = dc.getCalories();
+        ArrayList<DataEntry> elevation = dc.getElevation();
+        ArrayList<DataEntry> active = dc.getTimeActive();
 
         tempUserArrayList = new ArrayList<Dummy>(challengeChosen.getParticipants());
         me.setSteps(0);
+        me.setDistance(0);
+        me.setActiveHours(0);
+        me.setCalories(0);
+        me.setElevation(0);
+
 
         if(!tempUserArrayList.contains(me)) {
             tempUserArrayList.add(me);
         }
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for(DataEntry ent : steps) {
+            try {
+                Date d = df.parse(ent.getDate());
+                if(d.after(challengeChosen.getDate())) {
+                    me.setSteps(me.getSteps() + Integer.parseInt(ent.getValue()));
+                }
+            } catch(Exception e) {}
+        }
+        for(DataEntry ent : calories) {
+            try {
+                Date d = df.parse(ent.getDate());
+                if(d.after(challengeChosen.getDate())) {
+                    me.setCalories(me.getCalories() + Integer.parseInt(ent.getValue()));
+                }
+            } catch(Exception e) {}
+        }
+        for(DataEntry ent : active) {
+            try {
+                Date d = df.parse(ent.getDate());
+                if(d.after(challengeChosen.getDate())) {
+                    me.setActiveHours(me.getActiveHours() + Integer.parseInt(ent.getValue()));
+                }
+            } catch(Exception e) {}
+        }
+        for(DataEntry ent : elevation) {
+            try {
+                Date d = df.parse(ent.getDate());
+                if(d.after(challengeChosen.getDate())) {
+                    me.setElevation(me.getElevation() + Integer.parseInt(ent.getValue()));
+                }
+            } catch(Exception e) {}
+        }
+        for(DataEntry ent : distance) {
+            try {
+                Date d = df.parse(ent.getDate());
+                if(d.after(challengeChosen.getDate())) {
+                    me.setDistance(me.getDistance() + Integer.parseInt(ent.getValue()));
+                }
+            } catch(Exception e) {}
+        }
 
-        for(DataEntry ent : steps) {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date d = df.parse(ent.getDate());
-                if(d.after(challengeChosen.getDate())) {
-                    me.setSteps(me.getSteps() + Integer.parseInt(ent.getValue()));
-                }
-            } catch(Exception e) {}
-        }
-        for(DataEntry ent : steps) {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date d = df.parse(ent.getDate());
-                if(d.after(challengeChosen.getDate())) {
-                    me.setSteps(me.getSteps() + Integer.parseInt(ent.getValue()));
-                }
-            } catch(Exception e) {}
-        }
         challengeChosen.getDate();
         me.setProgress(challengeChosen.getChallengeType());
 
@@ -67,7 +100,7 @@ public class ProgressFrag extends Fragment {
         TextView testText = (TextView) view.findViewById(R.id.testText);
         TextView userName = (TextView) view.findViewById(R.id.userName);
         setProgress();
-//testText.setText(String.valueOf(me.getSteps()));
+//testText.setText(String.valueOf(me.getSteps()));//delete me
         for(int numUsers = 0; numUsers < challengeChosen.getParticipants().size(); numUsers++){
             //get numUsers image views into arraycontainerarray
             String userID = "user"+(numUsers+1);
