@@ -13,7 +13,7 @@
         <activity
             android:name=".DashboardMainActivity"
             android:screenOrientation="portrait"
-            android:label="Dashboard - Today">
+            android:label="My Stats - Today">
         </activity>
         <activity android:name=".LoginActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" >
 
@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".DashBoardDetailActivity"
-            android:label="History - Last 14 Days"
+            android:label="My Stats - Last 14 Days"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
             <meta-data
@@ -35,6 +35,7 @@
         <activity
             android:name=".CreateChallengeActivity"
             android:screenOrientation="portrait"
+            android:label="Create a new Challenge">
             android:configChanges="orientation|keyboardHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,6 +43,7 @@
         </activity>
         <activity
             android:name=".ViewChallenges"
+            android:label="Challenge Overview">
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
@@ -53,7 +55,7 @@
         </activity>
 
         <activity android:name=".UserProgress"
-            android:label="@string/user_progress"
+            android:label="Challenge Progress"
             android:exported="true"
             android:largeHeap="true">
             <meta-data

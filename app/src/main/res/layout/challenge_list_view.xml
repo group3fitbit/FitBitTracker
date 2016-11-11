@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:background="#1c1c1c"
             android:dividerHeight="4px"
             android:divider="#66bbcc"
             >
@@ -56,8 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:dividerHeight="4px"
-            android:divider="#66bbcc"
-            android:background="#1c1c1c">
+            android:divider="@color/black">
+            <!--android:background="#1c1c1c">-->
         </ListView>
     </LinearLayout>
 
