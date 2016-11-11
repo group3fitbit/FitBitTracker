@@ -85,7 +85,7 @@ public class Challenge {
     public Date getDate(){
         return date;
     }
-    public int getType(){
+    public int getGoal(){
         return goal;
     }
     public double getBetAmount(){

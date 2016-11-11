@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -21,35 +24,66 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 
+import static tempreture.android.csulb.edu.fitbitapp.UserProgress.Users;
+
 public class CreateChallengeActivity extends AppCompatActivity {
+
+    //Arraylist containing the users
+    public static ArrayList<Dummy> Users = new ArrayList<Dummy>();
+    public static ArrayList<ImageView> imageContainerArray = new ArrayList<ImageView>();
+
 
     EditText mEditChallengeName;
     EditText mEditChallengeGoals;
     Spinner mSpinnerChallengeType;
     EditText mEditChallengeBetAmount;
+    AutoCompleteTextView mAddPartcipants;
     Button mButton;
+
+    ImageView mChallengers;
 
     public TextView textView_Title;
     public TextView textView_BetAmount;
     public TextView textView_ChallengeType;
     public TextView textView_ChallengeGoal;
-    public TextView textView_ChallengeDuration;
+
     Challenge challenge;
     ArrayList<Challenge> challengeList;
+    ArrayList<Dummy> tempParticipants;
+
+    int imageCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_challenge);
+        imageCounter = 0;
+
+        final ImageLoader imageloader = new ImageLoader();
 
         challenge = new Challenge();
         challengeList = ChallengeStore.getInstance().getChallenges();
+        tempParticipants = new ArrayList<Dummy>();
+        challenge.setChallengeType("Steps");
+        ArrayList<String> usernames = new ArrayList<String>();
+        usernames.clear();
+
+        //Adding Dummy Data to Friends list
+        Users.clear();
+        Users.add(0,new Dummy(getString(R.string.Adrian),R.drawable.adrian_circle,R.drawable.adrian));
+        Users.add(1,new Dummy(getString(R.string.Jordan),R.drawable.jordan_circle,R.drawable.jordan));
+        Users.add(2,new Dummy(getString(R.string.Ming),R.drawable.ming_circle,R.drawable.ming));
+        Users.add(3,new Dummy(getString(R.string.Leslie),R.drawable.leslie_circle,R.drawable.leslie));
+        Users.add(4,new Dummy(getString(R.string.Noam),R.drawable.noam_circle,R.drawable.noam));
 
         //Dummy Data Friends List
-        String[] Friends = {"Adrian", "Noam", "Leslie", "Ming", "Jordan"};
+        for(int i = 0; i< Users.size(); i++){
+            usernames.add(Users.get(i).getName());
+            Log.v("username: ",usernames.get(i));
+        }
 
         //Autocomplete Text
-        ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, Friends);
+        ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, usernames);
         AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.AddFriends);
         acTextView.setThreshold(1);
         acTextView.setAdapter(sAdapter);
@@ -60,6 +94,45 @@ public class CreateChallengeActivity extends AppCompatActivity {
         mSpinnerChallengeType= (Spinner) findViewById(R.id.ChallengeTypes);
         mEditChallengeGoals = (EditText) findViewById(R.id.Goal);
         mEditChallengeBetAmount = (EditText) findViewById(R.id.Amount);
+        mAddPartcipants = (AutoCompleteTextView) findViewById(R.id.AddFriends);
+
+      //Stores Selected Participants
+        mAddPartcipants.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int selectedUserID = 0;
+                String selected = mAddPartcipants.getText().toString();
+               for(int i=0;i < Users.size();i++){
+                   if(Users.get(i).getName().equalsIgnoreCase(selected)){
+                       tempParticipants.add(Users.get(i));
+                       selectedUserID = i;
+                       imageCounter++;
+                       break;
+                   }
+               }
+                challenge.setParticipants(tempParticipants);
+                challengeList.add(challenge);
+                    String userID = "p"+(imageCounter);
+                    int userImageID = getResources().getIdentifier(userID, "id", view.getContext().getPackageName());//returns R.id
+                    mChallengers = (ImageView) findViewById(userImageID);
+                    imageloader.loadImage(getResources(),mChallengers,Users.get(selectedUserID).getBoxImage());
+                    final int tempSelectedUserID = selectedUserID;
+
+                    mChallengers.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(CreateChallengeActivity.this,Users.get(tempSelectedUserID).getName(), Toast.LENGTH_SHORT).show();//DO NOT DELETE
+                        }
+                    });
+
+                String tempString = null;
+                for(Dummy dum : tempParticipants){
+                    tempString = tempString + ", "+dum.getName();
+                }
+                mAddPartcipants.setText("");
+            }
+        });
 
         //Retrieves Selected Challenge Type
         mSpinnerChallengeType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -93,9 +166,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
                 } else if (tabId == R.id.tab_dashboard) {
                     Intent intent = new Intent(CreateChallengeActivity.this, DashboardMainActivity.class);
                     startActivity(intent);
-                }  else if (tabId == R.id.tab_trophies) {
-                    Intent intent = new Intent(CreateChallengeActivity.this, TrophiesActivity.class);
-                    startActivity(intent);
                 }
             }
         });
@@ -114,8 +184,8 @@ public class CreateChallengeActivity extends AppCompatActivity {
 
         textView_Title.setText(challenge.getName());
         textView_ChallengeType.setText(challenge.getChallengeType());
-        textView_ChallengeGoal.setText(challenge.getType());
-        textView_BetAmount.setText((int) challenge.getBetAmount());
+        textView_ChallengeGoal.setText(String.valueOf(challenge.getGoal()));
+        textView_BetAmount.setText( String.valueOf(challenge.getBetAmount()));
     }
 
     private void retrieveData(){
@@ -127,11 +197,11 @@ public class CreateChallengeActivity extends AppCompatActivity {
         //Retrieves and Set Participants
 
         //Retrieve and Set Goal Amount
-        int goal = Integer.parseInt(mEditChallengeGoals.getText().toString());
+        Integer goal = Integer.valueOf(mEditChallengeGoals.getText().toString());
         challenge.setGoal(goal);
 
         //Retrieve and Set Bet Amount
-        int amount = Integer.parseInt(mEditChallengeBetAmount.getText().toString());
+        Integer amount = Integer.valueOf(mEditChallengeBetAmount.getText().toString());
         challenge.setBetAmount(amount);
 
         ChallengeStore.getInstance().addChallenge(challenge);
@@ -143,5 +213,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
         retrieveData();
         initDataElements();
         reloadData();
+        tempParticipants.clear();
     }
 }
