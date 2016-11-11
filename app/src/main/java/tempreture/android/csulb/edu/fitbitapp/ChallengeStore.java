@@ -66,11 +66,11 @@ public class ChallengeStore {
         Users.add(3,new Dummy("Leslie",R.drawable.leslie_circle,R.drawable.leslie));
         Users.add(4,new Dummy("Noam",R.drawable.noam_circle,R.drawable.noam));
         //setStats reference -> (int calories,int steps, int elevation, double active, double distance)
-        Users.get(0).setStats(200,10000,50,100.3,78.5);
+        Users.get(0).setStats(200,10000,35,100.3,78.5);
         Users.get(1).setStats(1050,3000,20,100.3,33.1);
         Users.get(2).setStats(2000,2500,50,100.3,50.2);
-        Users.get(3).setStats(500,500,5,100.3,20.3);
-        Users.get(4).setStats(300,5000,5,86.3,5.5);
+        Users.get(3).setStats(500,500,75,100.3,20.3);
+        Users.get(4).setStats(300,5000,100,86.3,5.5);
 
         SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yyyy hh:mm");
         Date firstDate = null;
@@ -92,7 +92,7 @@ public class ChallengeStore {
         challenge1.startChallenge();
 
         Challenge challenge2 = new Challenge();
-        challenge2.setChallenge("To The Top","floors climbed",5,secondDate,18,Users);
+        challenge2.setChallenge("To The Top","floors climbed",100,secondDate,18,Users);
         challenge2.startChallenge();
         challenge2.closeChallenge();
 

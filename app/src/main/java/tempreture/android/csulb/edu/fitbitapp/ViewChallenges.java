@@ -85,8 +85,15 @@ public class ViewChallenges extends AppCompatActivity {
         pastChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past current challenge is chosen
             public void onItemClick(AdapterView arg0, View view,int position,long id){
                // Toast.makeText(ViewChallenges.this,"current challenge position: "+position,Toast.LENGTH_SHORT).show();//delete me
+                setContentView(R.layout.past_challenges);
             }
         });
+
+
+    }
+
+    public void backToList(){
+        setContentView(R.layout.challenge_list_view);
     }
     /* start menu ----------------------------------------------------------------- */
     public boolean onCreateOptionsMenu(Menu menu){

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="436dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:text="To The Top"
+            android:layout_width="match_parent"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_weight="1"
+            android:layout_marginBottom="50dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <TextView
+                    android:text="Start Date: 9/26/16 at 1pm"
+                    android:layout_width="176dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="20dp"/>
+
+                <TextView
+                    android:text="End Date: 9/29/16  at 5pm"
+                    android:layout_width="188dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView7"
+                    android:layout_marginBottom="50dp"
+                    />
+            </LinearLayout>
+        <TextView
+            android:text="Goal: 100 Floors Climbed"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:layout_below="@id/textView5"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="5dp"
+            />
+
+        <TextView
+            android:text="Winner: Noam       100 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:text="2nd: Leslie              75 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:text="3rd: Ming                50 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:text="4th: Me                    49 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:text="5th: Jordan             35 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:text="6th: Adrian              20 Floors"
+            android:layout_width="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            />
+    </LinearLayout>
+</ScrollView>
+    <Button
+        android:text="Back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/button2"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="bottom"
+        android:onClick="backToList"/>
+</LinearLayout>
