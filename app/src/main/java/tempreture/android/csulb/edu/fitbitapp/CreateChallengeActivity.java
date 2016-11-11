@@ -2,6 +2,8 @@ package tempreture.android.csulb.edu.fitbitapp;
 
 //Create Challenges
 
+import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -76,6 +82,23 @@ public class CreateChallengeActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerChallengeType.setAdapter(adapter);
 
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.selectTabWithId(R.id.tab_startchallenge);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_challenges) {
+                    Intent intend = new Intent(CreateChallengeActivity.this, ViewChallenges.class);
+                    startActivity(intend);
+                } else if (tabId == R.id.tab_dashboard) {
+                    Intent intent = new Intent(CreateChallengeActivity.this, DashboardMainActivity.class);
+                    startActivity(intent);
+                }  else if (tabId == R.id.tab_trophies) {
+                    Intent intent = new Intent(CreateChallengeActivity.this, TrophiesActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     //Initiates Data Elements to Rewrite

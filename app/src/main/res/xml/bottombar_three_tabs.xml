@@ -2,14 +2,18 @@
 <tabs>
     <tab
         id="@+id/tab_dashboard"
-        icon="@drawable/ic_map_24dp"
+        icon="@drawable/ic_dashboard"
         title="Dashboard" />
     <tab
-        id="@+id/tab_start_challenge"
-        icon="@drawable/ic_map_24dp"
+        id="@+id/tab_trophies"
+        icon="@drawable/ic_trophies"
+        title="Throphies" />
+    <tab
+        id="@+id/tab_startchallenge"
+        icon="@drawable/ic_startchallenge"
         title="Start Challenge" />
     <tab
         id="@+id/tab_challenges"
-        icon="@drawable/ic_map_24dp"
+        icon="@drawable/ic_challenge"
         title="Challenges" />
 </tabs>
