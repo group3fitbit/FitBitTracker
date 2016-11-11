@@ -25,50 +25,105 @@
         android:layout_marginTop="20dp"/>
 
     <TextView
-        android:id="@+id/BetAmount"
-        android:text="Bet Amount"
+        android:text="Bet Amount:"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Send"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="134dp"/>
-
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="100dp"/>
     <TextView
-        android:id="@+id/challengeType"
-        android:text="Challenge Type"
+        android:text="$"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_above="@+id/BetAmount"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="57dp"
-        android:layout_marginEnd="57dp"/>
-
+        android:layout_above="@+id/Send"
+        android:layout_marginLeft="135dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="100dp"/>
     <TextView
-        android:id="@+id/challengeGoal"
-        android:text="Challenge Goal"
+        android:id="@+id/BetAmount"
+        android:text="0.0"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/challengeType"
-        android:layout_alignBottom="@+id/challengeType"
-        android:layout_alignRight="@+id/ChallengeTitle"
-        android:layout_alignEnd="@+id/ChallengeTitle"
-        android:layout_marginRight="54dp"
-        android:layout_marginEnd="54dp"/>
+        android:layout_above="@+id/Send"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="100dp"/>
+
 
     <TextView
         android:id="@+id/ParticipantTitle"
         android:text="Parctipants: "
         android:textSize="18dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ChallengeTitle"
-        android:layout_alignLeft="@+id/challengeGoal"
-        android:layout_alignStart="@+id/challengeGoal"
-        android:layout_marginTop="86dp"/>
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/goalLabel"
+        android:text="Challenge Goal"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_alignBaseline="@+id/typeLabel"
+        android:layout_alignBottom="@+id/typeLabel"
+        android:layout_alignRight="@+id/BetAmount"
+        android:layout_alignEnd="@+id/BetAmount" />
+
+    <TextView
+        android:id="@+id/challengeGoal"
+        android:text="some goal"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/challengeType"
+        android:layout_alignBottom="@+id/challengeType"
+        android:layout_toLeftOf="@+id/ChallengeTitle"
+        android:layout_toStartOf="@+id/ChallengeTitle" />
+
+    <TextView
+        android:id="@+id/typeLabel"
+        android:text="Challenge Type"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ChallengeTitle"
+        android:layout_toEndOf="@+id/ChallengeTitle" />
+
+    <TextView
+        android:id="@+id/challengeType"
+        android:text="type"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_below="@+id/goalLabel"
+        android:layout_alignRight="@+id/typeLabel"
+        android:layout_alignEnd="@+id/typeLabel"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:id="@+id/ParticipantList"
+        android:text="participant list "
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ParticipantTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>

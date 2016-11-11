@@ -22,6 +22,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static tempreture.android.csulb.edu.fitbitapp.UserProgress.Users;
@@ -31,7 +32,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
     //Arraylist containing the users
     public static ArrayList<Dummy> Users = new ArrayList<Dummy>();
     public static ArrayList<ImageView> imageContainerArray = new ArrayList<ImageView>();
-
 
     EditText mEditChallengeName;
     EditText mEditChallengeGoals;
@@ -50,6 +50,9 @@ public class CreateChallengeActivity extends AppCompatActivity {
     Challenge challenge;
     ArrayList<Challenge> challengeList;
     ArrayList<Dummy> tempParticipants;
+    ArrayAdapter<String> sAdapter;
+    ArrayList<String> usernames;
+    AutoCompleteTextView acTextView;
 
     int imageCounter;
 
@@ -65,7 +68,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
         challengeList = ChallengeStore.getInstance().getChallenges();
         tempParticipants = new ArrayList<Dummy>();
         challenge.setChallengeType("Steps");
-        ArrayList<String> usernames = new ArrayList<String>();
+        usernames = new ArrayList<String>();
         usernames.clear();
 
         //Adding Dummy Data to Friends list
@@ -83,8 +86,8 @@ public class CreateChallengeActivity extends AppCompatActivity {
         }
 
         //Autocomplete Text
-        ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, usernames);
-        AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.AddFriends);
+        sAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, usernames);
+        acTextView = (AutoCompleteTextView) findViewById(R.id.AddFriends);
         acTextView.setThreshold(1);
         acTextView.setAdapter(sAdapter);
 
@@ -108,6 +111,11 @@ public class CreateChallengeActivity extends AppCompatActivity {
                        tempParticipants.add(Users.get(i));
                        selectedUserID = i;
                        imageCounter++;
+
+                       //removes chosen userName from adapter
+                       usernames.remove(Users.get(i).getName());
+                       sAdapter = new ArrayAdapter<String>(CreateChallengeActivity.this, android.R.layout.select_dialog_singlechoice, usernames);
+                       acTextView.setAdapter(sAdapter);
                        break;
                    }
                }
@@ -155,20 +163,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerChallengeType.setAdapter(adapter);
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.selectTabWithId(R.id.tab_startchallenge);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if(tabId == R.id.tab_challenges) {
-                    Intent intend = new Intent(CreateChallengeActivity.this, ViewChallenges.class);
-                    startActivity(intend);
-                } else if (tabId == R.id.tab_dashboard) {
-                    Intent intent = new Intent(CreateChallengeActivity.this, DashboardMainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
     //Initiates Data Elements to Rewrite
@@ -181,38 +175,55 @@ public class CreateChallengeActivity extends AppCompatActivity {
 
     //Rewrites text on review xml
     private void reloadData(){
-
         textView_Title.setText(challenge.getName());
         textView_ChallengeType.setText(challenge.getChallengeType());
         textView_ChallengeGoal.setText(String.valueOf(challenge.getGoal()));
-        textView_BetAmount.setText( String.valueOf(challenge.getBetAmount()));
+        DecimalFormat df = new DecimalFormat("#.##");
+        textView_BetAmount.setText(String.valueOf(String.format("%.2f",challenge.getBetAmount())));
     }
 
-    private void retrieveData(){
-
+    private boolean retrieveData(){
         //Retrieves and Set Challenge Name
-        String name = mEditChallengeName.getText().toString();
+        String name = mEditChallengeName.getText().toString().toUpperCase();
+        if(name.length()<1){
+            return false;
+        }
         challenge.setName(name);
 
         //Retrieves and Set Participants
 
         //Retrieve and Set Goal Amount
-        Integer goal = Integer.valueOf(mEditChallengeGoals.getText().toString());
+        int goal;
+        try {
+            goal = Integer.valueOf(mEditChallengeGoals.getText().toString());
+        }catch(Exception e){
+            return false;
+        }
+
         challenge.setGoal(goal);
 
         //Retrieve and Set Bet Amount
-        Integer amount = Integer.valueOf(mEditChallengeBetAmount.getText().toString());
+        double amount;
+        try {
+            amount = Double.valueOf(mEditChallengeBetAmount.getText().toString());
+        }catch(Exception e){
+            return false;
+        }
         challenge.setBetAmount(amount);
 
         ChallengeStore.getInstance().addChallenge(challenge);
+        return true;
     }
 
     //When the Users press review
     public void onClick_Review(View view) {
-        setContentView(R.layout.activity_challenge_review);
-        retrieveData();
-        initDataElements();
-        reloadData();
-        tempParticipants.clear();
+        if(retrieveData()) {
+            setContentView(R.layout.activity_challenge_review);
+            initDataElements();
+            reloadData();
+            tempParticipants.clear();
+        }else{
+            Toast.makeText(CreateChallengeActivity.this,"Please fill in all inputs",Toast.LENGTH_SHORT).show();
+        }
     }
 }
