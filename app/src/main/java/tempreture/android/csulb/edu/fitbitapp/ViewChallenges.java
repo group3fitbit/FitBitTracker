@@ -1,6 +1,7 @@
 
 
 package tempreture.android.csulb.edu.fitbitapp;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -23,50 +26,38 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static tempreture.android.csulb.edu.fitbitapp.UserProgress.Users;
+import static tempreture.android.csulb.edu.fitbitapp.ChallengeStore.Users;
+
 
 /* start class ------------------------------------------------------------> */
 public class ViewChallenges extends AppCompatActivity {
+    public static Challenge challengeChosen = new Challenge();
+    ArrayList<Dummy> allUsers = new ArrayList<Dummy>();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.challenge_list_view);
         ChallengeStore cs = ChallengeStore.getInstance();
-
-/* DELETE ME I AM A TEST - START ==========================================================*/
-        SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yyyy hh:mm");
-        Date startTime = Calendar.getInstance().getTime();
-        Date otherDate = null;
-        Date pastDate = null;
-        try {
-            otherDate = formatter.parse("11/06/2016 00:00");
-            pastDate = formatter.parse("05/06/2015 1:00");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Challenge challenge1 = new Challenge();
-        challenge1.setChallenge("Challenge 1","random type",15,startTime,15,Users);
-
-        Challenge challenge2 = new Challenge();
-        challenge2.setChallenge("Challenge 2","random type",5,otherDate,18,Users);
-
-        Challenge challenge3 = new Challenge();
-        challenge3.setChallenge("I am a past challenge","random type",5,pastDate,18,Users);
-
-        challenge3.closeChallenge();
-
-        cs.addChallenge(challenge1);
-        cs.addChallenge(challenge2);
-        cs.addChallenge(challenge3);
-
-        cs.get("Challenge 2").setName("I got renamed");//mutate both Challenge AND challengeStore
-        cs.get("Challenge 1").closeChallenge();
+        /* start toolbar*/
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.selectTabWithId(R.id.tab_challenges);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if(tabId == R.id.tab_dashboard) {
+                    Intent intent = new Intent(ViewChallenges.this, DashboardMainActivity.class);
+                    startActivity(intent);
+                } else if (tabId == R.id.tab_startchallenge) {
+                    Intent intent = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
+                    startActivity(intent);
+                } else if (tabId == R.id.tab_trophies) {
+                    Intent intent = new Intent(ViewChallenges.this, TrophiesActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        /* end toolbar*/
         ArrayList challengeData = cs.getChallenges();
-
-        Log.v("challenge array size: ",String.valueOf(cs.getChallenges().size()));
-
-
-/* DELETE ME I AM A TEST - END ==========================================================*/
+       // cs.addChallenge(challenge1);
 
         ChallengeListAdapter currentAdapter = new ChallengeListAdapter(challengeData,"current"); //place your String array in place of MyString
         ChallengeListAdapter pastAdapter = new ChallengeListAdapter(challengeData,"past"); //place your String array in place of MyString
@@ -77,26 +68,29 @@ public class ViewChallenges extends AppCompatActivity {
         currentChallengeList.setAdapter(currentAdapter);
         pastChallengeList.setAdapter(pastAdapter);
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.selectTabWithId(R.id.tab_challenges);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if(tabId == R.id.tab_dashboard) {
-                    Intent intend = new Intent(ViewChallenges.this, DashboardMainActivity.class);
-                    startActivity(intend);
-                } else if (tabId == R.id.tab_startchallenge) {
-                    Intent intent = new Intent(ViewChallenges.this, CreateChallengeActivity.class);
+                final ArrayList<Challenge> tempChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
+        currentChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past challenge is chosen
+            public void onItemClick(AdapterView arg0, View view, int position, long id){
+                challengeChosen = tempChallengeData.get(position);
+                 //Toast.makeText(ViewChallenges.this,"CHALLENGE CHOSEN: "+challengeChosen.getParticipants().get(0).getName(),Toast.LENGTH_SHORT).show();//delete me
+                if(tempChallengeData.get(position).isPending()){
+                    Toast.makeText(ViewChallenges.this,"Challenge Pending. You will be notified once your friends accept the challenge request ",Toast.LENGTH_SHORT).show();//delete me
+                }else{
+                    Intent intent = new Intent(ViewChallenges.this, UserProgress.class);
                     startActivity(intent);
-                }  else if (tabId == R.id.tab_trophies) {
-                    Intent intent = new Intent(ViewChallenges.this, TrophiesActivity.class);
-                    startActivity(intent);
+
                 }
             }
         });
 
+        pastChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past current challenge is chosen
+            public void onItemClick(AdapterView arg0, View view,int position,long id){
+               // Toast.makeText(ViewChallenges.this,"current challenge position: "+position,Toast.LENGTH_SHORT).show();//delete me
+            }
+        });
     }
-}
+
+}//end class
 
 class ChallengeListAdapter extends BaseAdapter {
     private ArrayList mData;
@@ -124,7 +118,7 @@ class ChallengeListAdapter extends BaseAdapter {
             return mData.size();
         }else if(status.equalsIgnoreCase("current")) {
             for (Challenge c : new ArrayList<Challenge>(mData)) {
-                if (c.isOver()) {//remove anything past
+                if (c.isOver()){ //remove anything past
                     mData.remove(c);
                 }
             }
@@ -151,20 +145,24 @@ class ChallengeListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final View view;
 
-            //view = LayoutInflater.from(parent.getContext()).inflate(R.layout.challenge_list_data, parent, false);
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.challenge_list_data, null);
+        //view = LayoutInflater.from(parent.getContext()).inflate(R.layout.challenge_list_data, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.challenge_list_data, null);
 
         TextView challengeName = (TextView) view.findViewById(R.id.challengeText);
         TextView statusName = (TextView) view.findViewById(R.id.challenge_status);
         TextView betAmount = (TextView) view.findViewById(R.id.bet_amount);
 
         // TODO replace findViewById by ViewHolder
-        Challenge challengeData = (Challenge) mData.get(position);
-
         if(!empty) {
+            Challenge challengeData = (Challenge) mData.get(position);
             challengeName.setText(challengeData.getName());
-            betAmount.setText("$ " + String.valueOf(challengeData.getBetAmount()));
-            statusName.setText(challengeData.isOver() ? "Winner: " : "In Lead: ");
+            betAmount.setText("$ " + String.valueOf(String.format("%.2f",challengeData.getBetAmount())));
+            if(challengeData.isPending()){//if challenge pending, display "pending"
+                statusName.setText("challenge pending");
+                statusName.setTypeface(null,Typeface.ITALIC);
+            }else {
+                statusName.setText(challengeData.isOver() ? "Winner: Noam" : "In Lead: ");
+            }
         }
 
         if(empty){

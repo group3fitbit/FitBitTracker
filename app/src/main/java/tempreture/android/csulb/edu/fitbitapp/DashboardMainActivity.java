@@ -30,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static tempreture.android.csulb.edu.fitbitapp.ChallengeStore.Users;
+
 /**
  * Created by Adrian on 21.10.2016.
  */
@@ -50,6 +52,7 @@ public class DashboardMainActivity extends AppCompatActivity {
         dc = DataContainer.getInstance();
         initViewElements();
 
+        ChallengeStore.getInstance().initChallenges();//initializes list with dummy challenges at startup
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.selectTabWithId(R.id.tab_dashboard);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {

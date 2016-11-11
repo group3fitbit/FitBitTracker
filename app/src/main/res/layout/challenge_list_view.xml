@@ -4,73 +4,75 @@
     android:layout_height="match_parent"
     android:background="@color/bg_light"
     android:orientation="vertical">
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="441dp"
+    android:fillViewport="true" >
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingTop="5dp"
+            android:gravity="center_vertical"
+            android:text="CURRENT CHALLENGES"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="CURRENT CHALLENGES"
-                android:textSize="20dp"/>
+            />
 
-            <ListView
-                android:id="@+id/current"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:background="#1c1c1c"
-                android:divider="#66bbcc"
-                android:dividerHeight="4px"></ListView>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#cbcbcc" /><!--this is a line-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:gravity="center_vertical"
-                android:text="PAST CHALLENGES"
-                android:textSize="20dp" />
-
-            <ListView
-                android:id="@+id/past"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:background="#1c1c1c"
-                android:divider="#66bbcc"
-                android:dividerHeight="4px"
-
-                android:paddingLeft="5dp"></ListView>
-        </LinearLayout>
-
-    </ScrollView>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <com.roughike.bottombar.BottomBar
-            android:id="@+id/bottomBar"
+        <ListView
+            android:id="@+id/current"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            app:bb_tabXmlResource="@xml/bottombar_three_tabs" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="#1c1c1c"
+            android:dividerHeight="4px"
+            android:divider="#66bbcc"
+            >
+        </ListView>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#cbcbcc" /><!--this is a line-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center_vertical"
+            android:text="PAST CHALLENGES"
+            android:textSize="20dp"
+            />
+
+        <ListView
+            android:id="@+id/past"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:dividerHeight="4px"
+            android:divider="#66bbcc"
+            android:background="#1c1c1c">
+        </ListView>
+    </LinearLayout>
+
+</ScrollView>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="60dp">
+
+<com.roughike.bottombar.BottomBar
+    android:id="@+id/bottomBar"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    app:bb_tabXmlResource="@xml/bottombar_three_tabs" />
+</RelativeLayout>
+
 </LinearLayout>

@@ -61,6 +61,6 @@
         <activity android:name=".FitbitApi" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
         <activity android:name=".UserActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
         <activity android:name=".EasySocialAuthActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
->>>>>>> e0a8066894e9a527336dd8814156dd0060b03909
+
     </application>
 </manifest>

@@ -11,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static tempreture.android.csulb.edu.fitbitapp.UserProgress.Users;
-
+import static tempreture.android.csulb.edu.fitbitapp.ProgressFrag.tempUserArrayList;
 
 public class DetailFrag extends Fragment {
     @Override
@@ -21,25 +20,19 @@ public class DetailFrag extends Fragment {
     }
 
     @Override
-   // public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-        //final View view = inflater.inflate(R.layout.user_progress_list, container,false);
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_progress_list, container, false);
 
         ListView listView = (ListView) view.findViewById(R.id.progress_list);
         String[] names = new String[5];
         int[] images = new int[5];
-       // String[] names = {"one","two","three","four","five"};
-       // int[] images = {R.drawable.adrian_circle,R.drawable.ming_circle,R.drawable.noam_circle,R.drawable.adrian_circle,R.drawable.adrian_circle};
-        for(int i=0;i<Users.size();i++){
-            names[i] = Users.get(i).getName();
-            images[i] = Users.get(i).getBoxImage();
+        for(int i=0;i<tempUserArrayList.size();i++){
+            names[i] = tempUserArrayList.get(i).getName();
+            images[i] = tempUserArrayList.get(i).getBoxImage();
         }
         //Instantiating the Customized Adapter
         ListViewAdapter LVAdapter = new ListViewAdapter(getActivity(), names, images);
         listView.setAdapter(LVAdapter);
-
 
         return view;
     }
@@ -48,7 +41,6 @@ public class DetailFrag extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
 }
 
 //Class implementation for the Customized Adapter
@@ -56,17 +48,6 @@ class ListViewAdapter extends ArrayAdapter<String> {
     Context context;
     int images[];
     String tls[];
-
-/*
-    @Override
-    public boolean areAllItemsEnabled() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled(int position) {
-        return false;
-    }*/
 
     ListViewAdapter(Context c, String[] titles, int img[]) {
         super(c, R.layout.list_view, R.id.textView2, titles);

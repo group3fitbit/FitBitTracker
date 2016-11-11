@@ -11,13 +11,17 @@ public class Challenge {
     double betAmount;
     ArrayList<Dummy> participants;
     boolean over;
+    boolean pending;
+    double progress;
 
     public Challenge(){
         name="Challenge Name";
         challengeType="?";
         goal=0;
         over = false;
+        pending = true;
         participants = new ArrayList<Dummy>();
+        progress = 0;
     }
 
     public Challenge(String name,String type, int goal, Date date, double betAmount, ArrayList<Dummy> participants){
@@ -71,11 +75,16 @@ public class Challenge {
         replaceChallengeInStore();
     }
 
+    public void startChallenge(){
+        pending = false;
+        replaceChallengeInStore();
+    }
+
     //returns whether challenge is over or not
     public boolean isOver(){
         return over;
     }
-
+    public boolean isPending(){return pending;}
     public String getName(){
         return name;
     }

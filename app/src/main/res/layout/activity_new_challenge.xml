@@ -166,7 +166,9 @@
                 android:layout_alignBaseline="@+id/Review"
                 android:layout_alignBottom="@+id/Review"
                 android:layout_toLeftOf="@+id/BetTitle"
-                android:layout_toStartOf="@+id/BetTitle"/>
+                android:layout_toStartOf="@+id/BetTitle"
+                android:onClick="cancel_newChallenge"
+                />
 
             <ImageView
                 android:layout_width="50dp"

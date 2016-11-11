@@ -24,14 +24,16 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-import static tempreture.android.csulb.edu.fitbitapp.UserProgress.Users;
+import static tempreture.android.csulb.edu.fitbitapp.ChallengeStore.Users;
+
 
 public class CreateChallengeActivity extends AppCompatActivity {
 
     //Arraylist containing the users
-    public static ArrayList<Dummy> Users = new ArrayList<Dummy>();
-    public static ArrayList<ImageView> imageContainerArray = new ArrayList<ImageView>();
+   //////// public static ArrayList<Dummy> Users = new ArrayList<Dummy>();
 
     EditText mEditChallengeName;
     EditText mEditChallengeGoals;
@@ -39,6 +41,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
     EditText mEditChallengeBetAmount;
     AutoCompleteTextView mAddPartcipants;
     Button mButton;
+    Button mSetChallenge;
 
     ImageView mChallengers;
 
@@ -46,6 +49,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
     public TextView textView_BetAmount;
     public TextView textView_ChallengeType;
     public TextView textView_ChallengeGoal;
+    public TextView textView_Participants;
 
     Challenge challenge;
     ArrayList<Challenge> challengeList;
@@ -65,6 +69,8 @@ public class CreateChallengeActivity extends AppCompatActivity {
         final ImageLoader imageloader = new ImageLoader();
 
         challenge = new Challenge();
+        Date startTime = Calendar.getInstance().getTime();
+        challenge.setDate(startTime);
         challengeList = ChallengeStore.getInstance().getChallenges();
         tempParticipants = new ArrayList<Dummy>();
         challenge.setChallengeType("Steps");
@@ -72,12 +78,18 @@ public class CreateChallengeActivity extends AppCompatActivity {
         usernames.clear();
 
         //Adding Dummy Data to Friends list
-        Users.clear();
+/*        Users.clear();
         Users.add(0,new Dummy(getString(R.string.Adrian),R.drawable.adrian_circle,R.drawable.adrian));
         Users.add(1,new Dummy(getString(R.string.Jordan),R.drawable.jordan_circle,R.drawable.jordan));
         Users.add(2,new Dummy(getString(R.string.Ming),R.drawable.ming_circle,R.drawable.ming));
         Users.add(3,new Dummy(getString(R.string.Leslie),R.drawable.leslie_circle,R.drawable.leslie));
         Users.add(4,new Dummy(getString(R.string.Noam),R.drawable.noam_circle,R.drawable.noam));
+        //setStats reference -> (int calories,int steps, int elevation, double active, double distance)
+        Users.get(0).setStats(200,5000,50,100.3,78.5);
+        Users.get(1).setStats(1050,3000,20,100.3,33.1);
+        Users.get(2).setStats(2000,400,50,100.3,50.2);
+        Users.get(3).setStats(500,500,5,100.3,20.3);
+        Users.get(4).setStats(300,200,5,86.3,5.5);*/
 
         //Dummy Data Friends List
         for(int i = 0; i< Users.size(); i++){
@@ -93,6 +105,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
 
         //Sets Data Entry
         mButton = (Button) findViewById(R.id.Review);
+        mSetChallenge = (Button) findViewById(R.id.Send);
         mEditChallengeName = (EditText) findViewById(R.id.ChallengeName);
         mSpinnerChallengeType= (Spinner) findViewById(R.id.ChallengeTypes);
         mEditChallengeGoals = (EditText) findViewById(R.id.Goal);
@@ -120,7 +133,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
                    }
                }
                 challenge.setParticipants(tempParticipants);
-                challengeList.add(challenge);
+               // challengeList.add(challenge);
                     String userID = "p"+(imageCounter);
                     int userImageID = getResources().getIdentifier(userID, "id", view.getContext().getPackageName());//returns R.id
                     mChallengers = (ImageView) findViewById(userImageID);
@@ -130,7 +143,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
                     mChallengers.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(CreateChallengeActivity.this,Users.get(tempSelectedUserID).getName(), Toast.LENGTH_SHORT).show();//DO NOT DELETE
                         }
                     });
 
@@ -148,8 +160,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected=mSpinnerChallengeType.getSelectedItem().toString();
                 challenge.setChallengeType(selected);
-                challengeList.add(challenge);
-                //cd.addChallengeTypeEntry(name, selected);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -171,6 +181,7 @@ public class CreateChallengeActivity extends AppCompatActivity {
         textView_BetAmount = (TextView) findViewById(R.id.BetAmount);
         textView_ChallengeType = (TextView) findViewById(R.id.challengeType);
         textView_ChallengeGoal = (TextView) findViewById(R.id.challengeGoal);
+        textView_Participants = (TextView) findViewById(R.id.ParticipantList);
     }
 
     //Rewrites text on review xml
@@ -180,6 +191,11 @@ public class CreateChallengeActivity extends AppCompatActivity {
         textView_ChallengeGoal.setText(String.valueOf(challenge.getGoal()));
         DecimalFormat df = new DecimalFormat("#.##");
         textView_BetAmount.setText(String.valueOf(String.format("%.2f",challenge.getBetAmount())));
+        String participants = "";
+        for(Dummy d : challenge.getParticipants()){
+            participants = participants +", "+ d.getName();
+        }
+        textView_Participants.setText(participants.substring(1,participants.length()));//get rid of first comma
     }
 
     private boolean retrieveData(){
@@ -189,8 +205,6 @@ public class CreateChallengeActivity extends AppCompatActivity {
             return false;
         }
         challenge.setName(name);
-
-        //Retrieves and Set Participants
 
         //Retrieve and Set Goal Amount
         int goal;
@@ -211,19 +225,49 @@ public class CreateChallengeActivity extends AppCompatActivity {
         }
         challenge.setBetAmount(amount);
 
-        ChallengeStore.getInstance().addChallenge(challenge);
         return true;
     }
 
     //When the Users press review
     public void onClick_Review(View view) {
-        if(retrieveData()) {
-            setContentView(R.layout.activity_challenge_review);
-            initDataElements();
-            reloadData();
-            tempParticipants.clear();
-        }else{
-            Toast.makeText(CreateChallengeActivity.this,"Please fill in all inputs",Toast.LENGTH_SHORT).show();
-        }
+
+            if (retrieveData()) {
+                boolean alreadyExists = false;
+                for(Challenge ch : (ArrayList<Challenge>)ChallengeStore.getInstance().getChallenges()){
+                    if(ch.getName().equalsIgnoreCase(challenge.getName())){
+                        alreadyExists = true;
+                    }
+                }
+                if(alreadyExists){
+                    Toast.makeText(CreateChallengeActivity.this,"Challenge name already exists",Toast.LENGTH_SHORT).show();//do not delete
+                }else {
+                    if(challenge.getParticipants().size()==0) {
+                        Toast.makeText(CreateChallengeActivity.this,"Don't forget to add your friends first",Toast.LENGTH_SHORT).show();//do not delete
+
+                    }else {
+                        setContentView(R.layout.activity_challenge_review);
+                        initDataElements();
+                        reloadData();
+                        tempParticipants.clear();
+                    }
+                }
+            } else {
+                Toast.makeText(CreateChallengeActivity.this, "Please fill in all inputs", Toast.LENGTH_SHORT).show();//do not delete
+            }
+
     }
+
+    //user requests challenge
+    public void onClick_submitChallenge(View view) {
+        ChallengeStore.getInstance().addChallenge(challenge);
+        Intent goToChallenge = new Intent(CreateChallengeActivity.this, ViewChallenges.class);
+        startActivity(goToChallenge);
+    }
+
+    public void cancel_newChallenge(View view){
+        challenge = new Challenge();//reset challenge to default
+        Intent goToChallenge = new Intent(CreateChallengeActivity.this,DashboardMainActivity.class);
+        startActivity(goToChallenge);
+    }
+
 }

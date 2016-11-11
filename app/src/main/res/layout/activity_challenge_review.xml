@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginBottom="19dp"
-        android:id="@+id/Send"/>
+        android:id="@+id/Send"
+        android:onClick="onClick_submitChallenge"/>
 
     <TextView
         android:id="@+id/ChallengeTitle"
@@ -45,7 +44,7 @@
         android:layout_marginBottom="100dp"/>
     <TextView
         android:id="@+id/BetAmount"
-        android:text="0.0"
+        android:text="0"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,6 +67,29 @@
         />
 
     <TextView
+        android:id="@+id/ParticipantList"
+        android:text="Participants List "
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ParticipantTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        />
+
+    <TextView
+        android:id="@+id/challengeGoal"
+        android:text="some goal"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/challengeType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp" />
+
+    <TextView
         android:id="@+id/goalLabel"
         android:text="Challenge Goal"
         android:textSize="18sp"
@@ -77,19 +99,8 @@
         android:textColor="@color/black"
         android:layout_alignBaseline="@+id/typeLabel"
         android:layout_alignBottom="@+id/typeLabel"
-        android:layout_alignRight="@+id/BetAmount"
-        android:layout_alignEnd="@+id/BetAmount" />
-
-    <TextView
-        android:id="@+id/challengeGoal"
-        android:text="some goal"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/challengeType"
-        android:layout_alignBottom="@+id/challengeType"
-        android:layout_toLeftOf="@+id/ChallengeTitle"
-        android:layout_toStartOf="@+id/ChallengeTitle" />
+        android:layout_alignLeft="@+id/challengeGoal"
+        android:layout_alignStart="@+id/challengeGoal" />
 
     <TextView
         android:id="@+id/typeLabel"
@@ -100,8 +111,10 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/ChallengeTitle"
-        android:layout_toEndOf="@+id/ChallengeTitle" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="44dp"
+        android:layout_marginEnd="44dp" />
 
     <TextView
         android:id="@+id/challengeType"
@@ -109,21 +122,25 @@
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp"
-        android:layout_below="@+id/goalLabel"
-        android:layout_alignRight="@+id/typeLabel"
-        android:layout_alignEnd="@+id/typeLabel"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/typeLabel"
+        android:layout_marginLeft="220dp"
+        />
 
     <TextView
-        android:id="@+id/ParticipantList"
-        android:text="participant list "
-        android:textSize="18dp"
+        android:text="CANCEL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ParticipantTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp" />
+        android:layout_above="@+id/Send"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:id="@+id/cancel_submit"
+        android:onClick="cancel_newChallenge"/>
 
 </RelativeLayout>
