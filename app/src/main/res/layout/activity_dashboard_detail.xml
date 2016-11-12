@@ -4,27 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/chart">
-    <!--android:background="#94D7E4"-->
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
-
-
-
-    <!--<com.roughike.bottombar.BottomBar-->
-        <!--android:id="@+id/bottomBar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--app:bb_tabXmlResource="@xml/bottombar_three_tabs" />-->
-    <!--</RelativeLayout>-->
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:orientation="vertical" android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/chart">-->
+    android:id="@+id/chart"
+    android:padding="10dp">
 
 </LinearLayout>
