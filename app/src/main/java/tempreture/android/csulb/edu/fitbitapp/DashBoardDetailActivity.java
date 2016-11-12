@@ -88,10 +88,11 @@ public class DashBoardDetailActivity extends AppCompatActivity {
         xyMultipleSeriesDataset.addSeries(expenseSeries);
         // Creating XYSeriesRenderer to customize expenseSeries
         XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setColor(Color.argb(1000, 38, 132, 150));
-        renderer.setPointStyle(PointStyle.CIRCLE);
+//        renderer.setColor(Color.argb(1000, 38, 132, 150));
+        renderer.setColor(R.color.colorPrimary);
+//        renderer.setPointStyle(PointStyle.DIAMOND);
         renderer.setFillPoints(true);
-        renderer.setLineWidth(3);
+        renderer.setLineWidth(10);
         renderer.setDisplayChartValues(true);
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
@@ -102,11 +103,12 @@ public class DashBoardDetailActivity extends AppCompatActivity {
 //        multiRenderer.setAxisTitleTextSize(20);
         multiRenderer.setShowLegend(false);
         multiRenderer.setZoomButtonsVisible(false);
-        multiRenderer.setChartTitleTextSize(70);
+        multiRenderer.setChartTitleTextSize(100);
         multiRenderer.setZoomButtonsVisible(false);
         //Disable/Enable Axis scrolling
         multiRenderer.setPanEnabled(true, true);
         multiRenderer.setYAxisMin(0.0);
+//        multiRenderer.setXLabelsColor(R.color.black);
         multiRenderer.setMarginsColor(Color.argb(1000, 255, 255, 255));
         multiRenderer.setLabelsTextSize(40);
 //        multiRenderer.setZoomEnabled(false, false);
@@ -127,12 +129,6 @@ public class DashBoardDetailActivity extends AppCompatActivity {
                 break;
             case DISTANCE:
                 multiRenderer.setChartTitle("Distance");
-                break;
-            case AVRGHEARTRATE:
-                break;
-            case MAXHEARTRATE:
-                break;
-            case MINHEARTRATE:
                 break;
             case CALORIES:
                 multiRenderer.setChartTitle("Calories");

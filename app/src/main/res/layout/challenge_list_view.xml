@@ -30,7 +30,7 @@
             android:id="@+id/current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            android:layout_margin="10dp"
             android:dividerHeight="4px"
             android:divider="#66bbcc"
             >
@@ -53,7 +53,7 @@
             android:id="@+id/past"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            android:layout_margin="10dp"
             android:dividerHeight="4px"
             android:divider="@color/black">
             <!--android:background="#1c1c1c">-->
