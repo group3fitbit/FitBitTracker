@@ -92,8 +92,9 @@ public class ViewChallenges extends AppCompatActivity {
 
     }
 
-    public void backToList(){
-        setContentView(R.layout.challenge_list_view);
+    public void backToList(View view){
+        Intent in = new Intent(ViewChallenges.this,ViewChallenges.class);
+        startActivity(in);
     }
     /* start menu ----------------------------------------------------------------- */
     public boolean onCreateOptionsMenu(Menu menu){
