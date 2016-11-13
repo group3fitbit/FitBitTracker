@@ -30,19 +30,19 @@
             android:orientation="horizontal">
                 <TextView
                     android:text="Start Date: 9/26/16 at 1pm"
-                    android:layout_width="176dp"
+                    android:layout_width="161dp"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView6"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginRight="20dp"/>
 
                 <TextView
                     android:text="End Date: 9/29/16  at 5pm"
-                    android:layout_width="188dp"
+                    android:layout_width="161dp"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"

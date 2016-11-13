@@ -83,9 +83,9 @@ public class ChallengeStore {
         }
 
         ArrayList<Dummy> challenge1Friends = new ArrayList<Dummy>();
-        challenge1Friends.add(Users.get(0));
-        challenge1Friends.add(Users.get(2));
-        challenge1Friends.add(Users.get(4));
+        challenge1Friends.add(Users.get(0));//adrian
+        challenge1Friends.add(Users.get(2));//ming
+        challenge1Friends.add(Users.get(4));//noam
 
         Challenge challenge1 = new Challenge();
         challenge1.setChallenge("Best Runner","steps",15000,firstDate,20,challenge1Friends);

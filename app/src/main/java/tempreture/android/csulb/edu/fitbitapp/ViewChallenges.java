@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 
 /* start class ------------------------------------------------------------> */
@@ -38,6 +40,10 @@ public class ViewChallenges extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.challenge_list_view);
         ChallengeStore cs = ChallengeStore.getInstance();
+
+
+
+
         /* start toolbar*/
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.selectTabWithId(R.id.tab_challenges);
@@ -67,24 +73,35 @@ public class ViewChallenges extends AppCompatActivity {
         currentChallengeList.setAdapter(currentAdapter);
         pastChallengeList.setAdapter(pastAdapter);
 
-        final ArrayList<Challenge> tempChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
+        final ArrayList<Challenge> tempCurrentChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
+        final ArrayList<Challenge> tempPastChallengeData = (ArrayList<Challenge>) cs.getChallenges().clone();
+
+        for (Challenge ch : new ArrayList<Challenge>(tempCurrentChallengeData)) {
+            if (ch.isOver()) {//remove anything past
+                tempCurrentChallengeData.remove(ch);
+            }
+        }
+        for (Challenge ch : new ArrayList<Challenge>(tempPastChallengeData)) {
+            if (!ch.isOver()) {//remove anything past
+                tempPastChallengeData.remove(ch);
+            }
+        }
+
         currentChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past challenge is chosen
             public void onItemClick(AdapterView arg0, View view, int position, long id){
-                challengeChosen = tempChallengeData.get(position);
+                challengeChosen = tempCurrentChallengeData.get(position);
                 //Toast.makeText(ViewChallenges.this,"CHALLENGE CHOSEN: "+challengeChosen.getParticipants().get(0).getName(),Toast.LENGTH_SHORT).show();//delete me
-                if(tempChallengeData.get(position).isPending()){
+                if(challengeChosen.isPending()){
                     Toast.makeText(ViewChallenges.this,"Challenge Pending. You will be notified once your friends accept the challenge request ",Toast.LENGTH_SHORT).show();//delete me
                 }else{
                     Intent intent = new Intent(ViewChallenges.this, UserProgress.class);
                     startActivity(intent);
-
                 }
             }
         });
 
         pastChallengeList.setOnItemClickListener(new AdapterView.OnItemClickListener(){//if past current challenge is chosen
             public void onItemClick(AdapterView arg0, View view,int position,long id){
-               // Toast.makeText(ViewChallenges.this,"current challenge position: "+position,Toast.LENGTH_SHORT).show();//delete me
                 setContentView(R.layout.past_challenges);
             }
         });
@@ -180,16 +197,101 @@ class ChallengeListAdapter extends BaseAdapter {
         TextView statusName = (TextView) view.findViewById(R.id.challenge_status);
         TextView betAmount = (TextView) view.findViewById(R.id.bet_amount);
 
-        // TODO replace findViewById by ViewHolder
+        // TODO replace findViewById by ViewHoldert
         if(!empty) {
             Challenge challengeData = (Challenge) mData.get(position);
             challengeName.setText(challengeData.getName());
             betAmount.setText("$ " + String.valueOf(String.format("%.2f",challengeData.getBetAmount())));
+
             if(challengeData.isPending()){//if challenge pending, display "pending"
                 statusName.setText("challenge pending");
                 statusName.setTypeface(null,Typeface.ITALIC);
             }else {
-                statusName.setText(challengeData.isOver() ? "Winner: Noam" : "In Lead: ");
+
+                /////////////////////////////////////////////////////////////////////////
+                DataContainer dc = DataContainer.getInstance();
+                ArrayList<DataEntry> steps = dc.getSteps();
+                ArrayList<DataEntry> distance = dc.getDistance();
+                ArrayList<DataEntry> calories = dc.getCalories();
+                ArrayList<DataEntry> elevation = dc.getElevation();
+                ArrayList<DataEntry> active = dc.getTimeActive();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                int totalSteps  = 0;
+                int totalCalories = 0;
+                int totalActive = 0;
+                int totalElevation = 0;
+                int totalDistance = 0;
+                for(DataEntry ent : steps) {
+                    try {
+                        Date d = df.parse(ent.getDate());
+                        if(d.after(((Challenge) mData.get(position)).getDate())) {
+                            totalSteps = totalSteps + Integer.parseInt(ent.getValue());
+                        }
+                    } catch(Exception e) {}
+                }
+                for(DataEntry ent : calories) {
+                    try {
+                        Date d = df.parse(ent.getDate());
+                        if(d.after(((Challenge) mData.get(position)).getDate())) {
+                            totalCalories = totalCalories + Integer.parseInt(ent.getValue());
+                        }
+                    } catch(Exception e) {}
+                }
+                for(DataEntry ent : active) {
+                    try {
+                        Date d = df.parse(ent.getDate());
+                        if(d.after(((Challenge) mData.get(position)).getDate())) {
+                            totalActive = totalActive + Integer.parseInt(ent.getValue());
+                        }
+                    } catch(Exception e) {}
+                }
+                for(DataEntry ent : elevation) {
+                    try {
+                        Date d = df.parse(ent.getDate());
+                        if(d.after(((Challenge) mData.get(position)).getDate())) {
+                           totalElevation =  totalElevation + Integer.parseInt(ent.getValue());
+                        }
+                    } catch(Exception e) {}
+                }
+                for(DataEntry ent : distance) {
+                    try {
+                        Date d = df.parse(ent.getDate());
+                        if(d.after(((Challenge) mData.get(position)).getDate())) {
+                           totalDistance = totalDistance + Integer.parseInt(ent.getValue());
+                        }
+                    } catch(Exception e) {}
+                }
+                /////////////////////////////////////////////////////////////////////////
+
+
+                TreeMap<Double,String> WinnerData = new TreeMap<Double,String>();
+                int myProgress = 0;
+                if(challengeData.getChallengeType().equalsIgnoreCase("steps")){
+                    myProgress = totalSteps;
+                }else if(challengeData.getChallengeType().equalsIgnoreCase("calories burned")){
+                    myProgress = totalCalories;
+                }else if(challengeData.getChallengeType().equalsIgnoreCase("floors climbed")){
+                    myProgress = totalElevation;
+                }else if(challengeData.getChallengeType().equalsIgnoreCase("distance traveled")){
+                    myProgress = totalDistance;
+                }else if(challengeData.getChallengeType().equalsIgnoreCase("hours active")){
+                    myProgress = totalActive;
+                }
+                for(Dummy dum : challengeData.getParticipants())
+                {
+                    dum.setProgress(challengeData.getChallengeType());
+                }
+
+                    WinnerData.clear();//reset winner
+                for(int i=0;i<challengeData.getParticipants().size();i++){
+                    WinnerData.put(challengeData.getParticipants().get(i).getProgress(),challengeData.getParticipants().get(i).getName());
+                }
+                WinnerData.put((double)myProgress,"Me");
+                int lastTreeIndex = WinnerData.size()-1;
+                String inLead = WinnerData.get(WinnerData.keySet().toArray()[lastTreeIndex]).toString();
+
+                challengeData.getParticipants();
+                statusName.setText(challengeData.isOver() ? "Winner: Noam" : ("In Lead: "+inLead+" "));
             }
         }
 
