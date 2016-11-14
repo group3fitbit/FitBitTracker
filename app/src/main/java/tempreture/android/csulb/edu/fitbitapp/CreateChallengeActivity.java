@@ -2,12 +2,14 @@ package tempreture.android.csulb.edu.fitbitapp;
 
 //Create Challenges
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -230,6 +232,13 @@ public class CreateChallengeActivity extends AppCompatActivity {
 
     //When the Users press review
     public void onClick_Review(View view) {
+
+        //Hides Keyboard
+        View v = this.getCurrentFocus();
+        if (v != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
             if (retrieveData()) {
                 boolean alreadyExists = false;
